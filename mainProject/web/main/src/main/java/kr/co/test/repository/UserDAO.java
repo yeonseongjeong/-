@@ -20,8 +20,8 @@ public class UserDAO {
 
     // 회원 정보 삽입
     public int insertUser(UserVO user) {
-        String sql = "INSERT INTO USERS (USER_ID, USERNAME, EMAIL, PASSWORD, PHONE_NUMBER) VALUES (?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, user.getUserId(), user.getUsername(), user.getEmail(), user.getPassword(), user.getPhoneNumber());
+        String sql = "INSERT INTO USERS (USER_ID, USERNAME, EMAIL, PASSWORD, PHONE_NUMBER) VALUES (USER_ID_SEQ.NEXTVAL, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPassword(), user.getPhoneNumber());
     }
 
     // 회원 ID로 삭제
@@ -47,7 +47,7 @@ public class UserDAO {
         @Override
         public UserVO mapRow(ResultSet rs, int rowNum) throws SQLException {
             UserVO user = new UserVO();
-            user.setUserId(rs.getInt("USER_ID"));
+            user.setUserId(rs.getInt("USER_ID")); // 자동 증가 필드
             user.setUsername(rs.getString("USERNAME"));
             user.setEmail(rs.getString("EMAIL"));
             user.setPassword(rs.getString("PASSWORD"));
