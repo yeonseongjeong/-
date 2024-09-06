@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  ΖΔΐΟΐΜ »ύΌΊµΚ - Θ­ΏδΐΟ-9Ώω-03-2024   
+--  οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ - Θ­οΏ½οΏ½οΏ½οΏ½-9οΏ½οΏ½-03-2024   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table CART_HISTORY
@@ -278,4 +278,14 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE
 NOCYCLE;
+
+CREATE TABLE cart_items (
+    user_id NUMBER,                      -- μ‚¬μ©μ ID (μ™Έλν‚¤)
+    product_id NUMBER,                   -- μ ν’ ID (μ™Έλν‚¤)
+    quantity NUMBER DEFAULT 1,           -- μ ν’ μλ‰
+    price NUMBER,                        -- μ ν’ κ°€κ²© (λ³µμ‚¬λ κ°€κ²©)
+    PRIMARY KEY (user_id, product_id),   -- λ³µν•© κΈ°λ³Έν‚¤
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id),
+    CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products (product_id)
+);
 

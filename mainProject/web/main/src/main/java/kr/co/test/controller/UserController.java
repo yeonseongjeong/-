@@ -36,6 +36,7 @@ public class UserController {
         UserVO user = userService.login(email, password);
         
         if (user != null) {
+        	session.setAttribute("userId", user.getUserId());
             session.setAttribute("user", user); // 로그인 성공, 세션에 사용자 정보 저장
             return "redirect:/"; // 로그인 성공 시 홈으로 리다이렉트
         } else {
