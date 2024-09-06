@@ -32,6 +32,19 @@
             <h1 class="display-4 text-light">테스트</h1>
             <p class="lead text-light">마이페이지</p>
         </div>
+        <!-- 마이페이지 링크 추가 -->
+    <a href="/mypage" class="position-absolute" style="top: 20px; right: 20px; text-decoration: none;">
+        <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
+        <!-- <span class="text-light"></span> -->
+    </a>
+     <!-- 장바구니 링크 추가 -->
+        <a href="/cart" class="icon-link" style="position: absolute;
+            top: 20px;
+            right: 80px;
+            text-decoration: none;
+            color: white;">
+            <i class="bi bi-cart" style="font-size: 2rem;"></i>
+        </a>
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

@@ -27,6 +27,16 @@
             max-width: 100%;
             height: auto;
         }
+        .icon-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            color: white;
+        }
+        .icon-link i {
+            font-size: 2rem;
+        }
     </style>
 </head>
 
@@ -41,6 +51,10 @@
         <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
         <!-- <span class="text-light"></span> -->
     </a>
+     <!-- 장바구니 링크 추가 -->
+        <a href="/cart" class="icon-link" style="right: 80px;">
+            <i class="bi bi-cart"></i>
+        </a>
 </div>
 
 

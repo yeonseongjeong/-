@@ -21,9 +21,12 @@
             }
         }
     </script>
+    <style>
+    
+    </style>
 </head>
 <body>
-    <div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
+	<div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
     <div class="container text-center">
         <h1 class="display-4 text-light">테스트</h1>
         <p class="lead text-light">test</p>
@@ -33,6 +36,14 @@
         <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
         <!-- <span class="text-light"></span> -->
     </a>
+     <!-- 장바구니 링크 추가 -->
+        <a href="/cart" class="icon-link" style="position: absolute;
+            top: 20px;
+            right: 80px;
+            text-decoration: none;
+            color: white;">
+            <i class="bi bi-cart" style="font-size: 2rem;"></i>
+        </a>
 </div>
 
 
