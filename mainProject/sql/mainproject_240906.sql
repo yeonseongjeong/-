@@ -1,6 +1,11 @@
 --------------------------------------------------------
---  ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ - »≠ÔøΩÔøΩÔøΩÔøΩ-9ÔøΩÔøΩ-03-2024   
+--  ∆ƒ¿œ¿Ã ª˝º∫µ  - ±›ø‰¿œ-9ø˘-06-2024   
 --------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence USER_ID_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "MAINPROJECT"."USER_ID_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 4 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Table CART_HISTORY
 --------------------------------------------------------
@@ -11,6 +16,20 @@
 	"PRODUCT_ID" NUMBER, 
 	"ACTION" VARCHAR2(10 BYTE), 
 	"ACTION_DATE" DATE DEFAULT SYSDATE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table CART_ITEMS
+--------------------------------------------------------
+
+  CREATE TABLE "MAINPROJECT"."CART_ITEMS" 
+   (	"USER_ID" NUMBER, 
+	"PRODUCT_ID" NUMBER, 
+	"QUANTITY" NUMBER DEFAULT 1, 
+	"PRICE" NUMBER
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -69,7 +88,8 @@
 	"PRODUCT_NAME" VARCHAR2(255 BYTE), 
 	"CATEGORY_ID" NUMBER, 
 	"PRICE" NUMBER, 
-	"STOCK_QUANTITY" NUMBER DEFAULT 0
+	"STOCK_QUANTITY" NUMBER DEFAULT 0, 
+	"IMAGE_URL" VARCHAR2(255 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -120,20 +140,48 @@
   TABLESPACE "SYSTEM" ;
 REM INSERTING into MAINPROJECT.CART_HISTORY
 SET DEFINE OFF;
+REM INSERTING into MAINPROJECT.CART_ITEMS
+SET DEFINE OFF;
+Insert into MAINPROJECT.CART_ITEMS (USER_ID,PRODUCT_ID,QUANTITY,PRICE) values (3,1,1,50000);
+Insert into MAINPROJECT.CART_ITEMS (USER_ID,PRODUCT_ID,QUANTITY,PRICE) values (3,2,2,30000);
 REM INSERTING into MAINPROJECT.CATEGORIES
 SET DEFINE OFF;
+Insert into MAINPROJECT.CATEGORIES (CATEGORY_ID,CATEGORY_NAME) values (1,'c1');
 REM INSERTING into MAINPROJECT.ORDERS
 SET DEFINE OFF;
 REM INSERTING into MAINPROJECT.ORDER_ITEMS
 SET DEFINE OFF;
 REM INSERTING into MAINPROJECT.PRODUCTS
 SET DEFINE OFF;
+Insert into MAINPROJECT.PRODUCTS (PRODUCT_ID,PRODUCT_NAME,CATEGORY_ID,PRICE,STOCK_QUANTITY,IMAGE_URL) values (1,'pname1',1,50000,10,'imgurlTest');
+Insert into MAINPROJECT.PRODUCTS (PRODUCT_ID,PRODUCT_NAME,CATEGORY_ID,PRICE,STOCK_QUANTITY,IMAGE_URL) values (2,'pname2',1,20000,100,'imgurlTest2');
 REM INSERTING into MAINPROJECT.PRODUCT_DESCRIPTIONS
 SET DEFINE OFF;
 REM INSERTING into MAINPROJECT.USERS
 SET DEFINE OFF;
+Insert into MAINPROJECT.USERS (USER_ID,USERNAME,EMAIL,PASSWORD,PHONE_NUMBER) values (3,'test3','test3@a.a','4321','phone3');
+Insert into MAINPROJECT.USERS (USER_ID,USERNAME,EMAIL,PASSWORD,PHONE_NUMBER) values (1,'test1','test1@a.a','1234','phone1');
+Insert into MAINPROJECT.USERS (USER_ID,USERNAME,EMAIL,PASSWORD,PHONE_NUMBER) values (0,'lyw','lyw@naver.com','1234','01011111111');
+Insert into MAINPROJECT.USERS (USER_ID,USERNAME,EMAIL,PASSWORD,PHONE_NUMBER) values (2,'test2','test2@a.a','1234','phone2');
 REM INSERTING into MAINPROJECT.USER_VIEWS
 SET DEFINE OFF;
+--------------------------------------------------------
+--  DDL for Trigger TRG_BEFORE_INSERT_USERS
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "MAINPROJECT"."TRG_BEFORE_INSERT_USERS" 
+BEFORE INSERT ON USERS
+FOR EACH ROW
+BEGIN
+    IF :NEW.USER_ID IS NULL THEN
+        SELECT user_id_seq.NEXTVAL
+        INTO :NEW.USER_ID
+        FROM dual;
+    END IF;
+END;
+
+/
+ALTER TRIGGER "MAINPROJECT"."TRG_BEFORE_INSERT_USERS" ENABLE;
 --------------------------------------------------------
 --  Constraints for Table ORDER_ITEMS
 --------------------------------------------------------
@@ -198,6 +246,15 @@ SET DEFINE OFF;
   ALTER TABLE "MAINPROJECT"."PRODUCTS" MODIFY ("PRICE" NOT NULL ENABLE);
   ALTER TABLE "MAINPROJECT"."PRODUCTS" MODIFY ("PRODUCT_NAME" NOT NULL ENABLE);
 --------------------------------------------------------
+--  Constraints for Table CART_ITEMS
+--------------------------------------------------------
+
+  ALTER TABLE "MAINPROJECT"."CART_ITEMS" ADD PRIMARY KEY ("USER_ID", "PRODUCT_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+--------------------------------------------------------
 --  Constraints for Table PRODUCT_DESCRIPTIONS
 --------------------------------------------------------
 
@@ -238,6 +295,14 @@ SET DEFINE OFF;
   ALTER TABLE "MAINPROJECT"."CART_HISTORY" ADD FOREIGN KEY ("PRODUCT_ID")
 	  REFERENCES "MAINPROJECT"."PRODUCTS" ("PRODUCT_ID") ENABLE;
 --------------------------------------------------------
+--  Ref Constraints for Table CART_ITEMS
+--------------------------------------------------------
+
+  ALTER TABLE "MAINPROJECT"."CART_ITEMS" ADD CONSTRAINT "FK_PRODUCT_ID" FOREIGN KEY ("PRODUCT_ID")
+	  REFERENCES "MAINPROJECT"."PRODUCTS" ("PRODUCT_ID") ENABLE;
+  ALTER TABLE "MAINPROJECT"."CART_ITEMS" ADD CONSTRAINT "FK_USER_ID" FOREIGN KEY ("USER_ID")
+	  REFERENCES "MAINPROJECT"."USERS" ("USER_ID") ENABLE;
+--------------------------------------------------------
 --  Ref Constraints for Table ORDERS
 --------------------------------------------------------
 
@@ -271,21 +336,3 @@ SET DEFINE OFF;
 	  REFERENCES "MAINPROJECT"."USERS" ("USER_ID") ENABLE;
   ALTER TABLE "MAINPROJECT"."USER_VIEWS" ADD FOREIGN KEY ("PRODUCT_ID")
 	  REFERENCES "MAINPROJECT"."PRODUCTS" ("PRODUCT_ID") ENABLE;
-
-
-CREATE SEQUENCE user_id_seq
-START WITH 1
-INCREMENT BY 1
-NOCACHE
-NOCYCLE;
-
-CREATE TABLE cart_items (
-    user_id NUMBER,                      -- ÏÇ¨Ïö©Ïûê ID (Ïô∏ÎûòÌÇ§)
-    product_id NUMBER,                   -- Ï†úÌíà ID (Ïô∏ÎûòÌÇ§)
-    quantity NUMBER DEFAULT 1,           -- Ï†úÌíà ÏàòÎüâ
-    price NUMBER,                        -- Ï†úÌíà Í∞ÄÍ≤© (Î≥µÏÇ¨Îêú Í∞ÄÍ≤©)
-    PRIMARY KEY (user_id, product_id),   -- Î≥µÌï© Í∏∞Î≥∏ÌÇ§
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (user_id),
-    CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products (product_id)
-);
-

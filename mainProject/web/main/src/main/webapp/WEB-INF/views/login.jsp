@@ -41,6 +41,15 @@
         <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
         <!-- <span class="text-light"></span> -->
     </a>
+    </a>
+     <!-- 장바구니 링크 추가 -->
+        <a href="/cart" class="icon-link" style="position: absolute;
+            top: 20px;
+            right: 80px;
+            text-decoration: none;
+            color: white;">
+            <i class="bi bi-cart" style="font-size: 2rem;"></i>
+        </a>
 </div>
 
 

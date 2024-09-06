@@ -23,7 +23,7 @@
             display: flex;
             align-items: center;
         }
-        .carousel-item img {
+        .carousel-item img {						
             max-width: 100%;
             height: auto;
         }
@@ -41,6 +41,14 @@
         <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
         <!-- <span class="text-light"></span> -->
     </a>
+     <!-- 장바구니 링크 추가 -->
+        <a href="/cart" class="icon-link" style="position: absolute;
+            top: 20px;
+            right: 80px;
+            text-decoration: none;
+            color: white;">
+            <i class="bi bi-cart" style="font-size: 2rem;"></i>
+        </a>
 </div>
 
 
@@ -102,6 +110,10 @@
                         <div class="mb-3">
                             <label for="confirmPassword" class="form-label">비밀번호 확인</label>
                             <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 다시 입력하세요" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">전화번호</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="전화번호를 입력하세요" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">회원가입</button>
                     </form>
