@@ -17,8 +17,10 @@ public class MypageController {
         if (user == null) {
             // 세션에 사용자 정보가 없으면 mypage.jsp에서 처리
             model.addAttribute("loginRequired", true);
+            return "mypage";
         }
-
+        
         return "mypage";
+        
     }
 }
