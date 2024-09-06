@@ -95,6 +95,8 @@
                                     <h5 class="card-title">테스트1</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">테스트사진1</h6>
                                     <p class="card-text">테스트1 설명.</p>
+                                    <p class ="pid" hidden>1</p>
+									<a class="product_link" href="/product/1">자세히보기</a>
                                 </div>
                             </div>
                         </div>
