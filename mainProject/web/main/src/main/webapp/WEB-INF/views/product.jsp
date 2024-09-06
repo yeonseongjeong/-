@@ -16,56 +16,161 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <style>
-         .product {
-            background: #fff;
+        .hero {
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            text-align: center;
-        }
-        .product h2 {
-            margin-top: 0;
-        }
-        .product p {
-            font-size: 1.2em;
-            color: #555;
-        }
-        .product .price {
-            color: #b12704;
-            font-size: 1.5em;
-            margin-top: 10px;
-        }
-        .buy-button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 1em;
             color: #fff;
-            background-color: #28a745;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
         }
-        .buy-button:hover {
-            background-color: #218838;
-        }
+		.product {
+		    background: #fff;
+		    padding: 20px;
+		    border-radius: 8px;
+		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		    margin-top: 20px;
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: flex-start;
+		    border: 1px solid #ddd; /* 블록 외곽선 추가 */
+		}
+		
+		.product img {
+		    max-width: 300px;
+		    border-radius: 8px;
+		    border: 1px solid #ddd; /* 이미지 외곽선 추가 */
+		}
+		
+		.details {
+		    flex: 1;
+		    max-width: 60%;
+		}
+		
+		.product-info, .quantity-controls, .stock-info {
+		    margin-bottom: 20px;
+		    padding: 15px;
+		    border: 1px solid #ddd; /* 블록 구분선 추가 */
+		    border-radius: 8px;
+		    background: #f8f9fa; /* 블록 배경색 추가 */
+		}
+		
+		.product-info h1 {
+		    margin-top: 0;
+		}
+		
+		.product-info .price {
+		    color: #b12704;
+		    font-size: 1.5em;
+		}
+		
+		.quantity-controls {
+		    display: flex;
+		    align-items: center;
+		    gap: 10px;
+		}
+		
+		.quantity-controls button {
+		    padding: 5px 10px;
+		    font-size: 1em;
+		    border: 1px solid #ddd;
+		    border-radius: 5px;
+		    background-color: #f8f9fa;
+		    cursor: pointer;
+		}
+		
+		.quantity-controls button:hover {
+		    background-color: #e2e6ea;
+		}
+		
+		.quantity-controls input {
+		    width: 60px;
+		    text-align: center;
+		    font-size: 1em;
+		    border: 1px solid #ddd;
+		    border-radius: 5px;
+		    padding: 5px;
+		}
+		
+		.stock-info p {
+		    font-size: 1.2em;
+		    color: #555;
+		}
+		
+		.total-price {
+		    font-weight: bold;
+		    color: #b12704;
+		    font-size: 1.5em;
+		}
+		
+		.description {
+		    background: #fff;
+		    padding: 20px;
+		    border-radius: 8px;
+		    border: 1px solid #ddd; /* 설명 블록 외곽선 추가 */
+		    margin-top: 20px;
+		}
+		
+		.button-group {
+		    text-align: center;
+		    margin-top: 20px;
+		}
+		
+		.buy-button, .cart-button {
+		    display: inline-block;
+		    padding: 10px 20px;
+		    font-size: 1em;
+		    color: #fff;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    text-decoration: none;
+		    margin-right: 10px;
+		}
+		
+		.buy-button {
+		    background-color: #28a745;
+		}
+		
+		.buy-button:hover {
+		    background-color: #218838;
+		}
+		
+		.cart-button {
+		    background-color: #007bff;
+		}
+		
+		.cart-button:hover {
+		    background-color: #0056b3;
+		}
+		
+		.related-products {
+		    margin-top: 40px;
+		}
+		
+		.related-products h2 {
+		    margin-bottom: 20px;
+		}
+		
+		.related-products .card {
+		    margin-bottom: 20px;
+		    border: 1px solid #ddd; /* 관련 상품 카드 외곽선 추가 */
+		    border-radius: 8px;
+		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+
     </style>
 </head>
 
 <body>
-	<div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
-    <div class="container text-center">
-        <h1 class="display-4 text-light">테스트</h1>
-        <p class="lead text-light">test</p>
+    <div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
+        <div class="container text-center">
+            <h1 class="display-4 text-light">테스트</h1>
+            <p class="lead text-light">test</p>
+        </div>
+        <!-- 마이페이지 링크 추가 -->
+        <a href="/mypage" class="position-absolute" style="top: 20px; right: 20px; text-decoration: none;">
+            <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
+            <!-- <span class="text-light"></span> -->
+        </a>
     </div>
-    <!-- 마이페이지 링크 추가 -->
-    <a href="/mypage" class="position-absolute" style="top: 20px; right: 20px; text-decoration: none;">
-        <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
-        <!-- <span class="text-light"></span> -->
-    </a>
-</div>
-
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -94,7 +199,8 @@
                         <a class="nav-link" href="#">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a></li>
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -103,15 +209,115 @@
             </div>
         </div>
     </nav>
-    <div class="container">      
-            <div class="product">
-                <h1>${product.productName}</h1>
-        		<p>가격: ${product.price}</p>
-        		<p>재고: ${product.stockQuantity}</p>
-       			<p>${description.description}</p>
-                <a href="/buy/${product.productId}" class="buy-button">Buy Now</a>
+
+    <div class="container">
+        <div class="product">
+		    <img src="https://via.placeholder.com/300" alt="Product Image">
+			    <div class="details">
+			        <div class="product-info">
+			            <h1>${product.productName}</h1>
+			            <p class="price">가격: <span id="price">${product.price}</span>원</p>
+			        </div>
+			        <div class="quantity-controls">
+			            <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(-1)">-</button>
+			            <input type="number" id="quantity" value="1" min="1" />
+			            <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(1)">+</button>
+			        </div>
+			        <div class="stock-info">
+			            <p>재고: ${product.stockQuantity}</p>
+			            <p class="total-price">총 가격: <span id="totalPrice">${product.price}</span>원</p>
+			        </div>
+			    </div>
+		</div>
+
+        <!-- 설명 추가 -->
+        <div class="description">
+            <h2>상품 설명</h2>
+            <p>${description.description}자세한 설명은 여기서</p>
+        </div>
+
+        <!-- 버튼 그룹 추가 -->
+        <div class="button-group">
+            <a href="/buy/${product.productId}" class="buy-button">구매하기</a>
+            <a href="/cart/add/${product.productId}" class="cart-button">장바구니로 보내기</a>
+        </div>
+
+        <!-- 비슷한 카테고리 상품들 추가 -->
+        <div class="related-products">
+            <h2>비슷한 카테고리의 상품들</h2>
+            <div class="row">
+                <!-- 반복되는 카드 예제 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Related Product 1">
+                        <div class="card-body">
+                            <h5 class="card-title">상품명 1</h5>
+                            <p class="card-text">가격: 10,000원</p>
+                            <a href="#" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Related Product 2">
+                        <div class="card-body">
+                            <h5 class="card-title">상품명 2</h5>
+                            <p class="card-text">가격: 15,000원</p>
+                            <a href="#" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Related Product 3">
+                        <div class="card-body">
+                            <h5 class="card-title">상품명 3</h5>
+                            <p class="card-text">가격: 20,000원</p>
+                            <a href="#" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
     </div>
 
+    <script>
+        // Assume stockQuantity is available in a JavaScript variable
+        var stockQuantity = ${product.stockQuantity}; 
+
+        function changeQuantity(change) {
+            var quantityInput = document.getElementById('quantity');
+            var currentQuantity = parseInt(quantityInput.value);
+            var newQuantity = currentQuantity + change;
+
+            // Ensure newQuantity is within bounds
+            if (newQuantity < 1) newQuantity = 1;
+            if (newQuantity > stockQuantity) newQuantity = stockQuantity;
+
+            quantityInput.value = newQuantity;
+        }
+        var pricePerUnit = ${product.price}; 
+        function updatePrice(quantity) {
+            // Calculate the total price
+            var totalPrice = pricePerUnit * quantity;
+
+            // Update the total price display
+            document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
+        }
+        function changeQuantity(change) {
+            var quantityInput = document.getElementById('quantity');
+            var currentQuantity = parseInt(quantityInput.value);
+            var newQuantity = currentQuantity + change;
+
+            // Ensure newQuantity is within bounds
+            if (newQuantity < 1) newQuantity = 1;
+            if (newQuantity > stockQuantity) newQuantity = stockQuantity;
+
+            quantityInput.value = newQuantity;
+
+            // Update the total price based on the new quantity
+            updatePrice(newQuantity);
+        }
+    </script>
 </body>
 </html>
