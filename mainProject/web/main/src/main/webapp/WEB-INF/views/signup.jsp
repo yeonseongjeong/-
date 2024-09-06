@@ -23,7 +23,7 @@
             display: flex;
             align-items: center;
         }
-        .carousel-item img {
+        .carousel-item img {						
             max-width: 100%;
             height: auto;
         }
