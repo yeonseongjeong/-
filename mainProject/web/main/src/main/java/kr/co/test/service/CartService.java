@@ -17,26 +17,34 @@ public class CartService {
     @Autowired
     private CartDAO cartDAO;
 
-    /**
-     * 사용자의 장바구니 아이템을 가져옵니다.
-     *
-     * @param userId 사용자의 ID
-     * @return 장바구니 아이템 목록
-     */
     public List<CartItemVO> getCartItems(int userId) {
         try {
-            // DAO를 통해 장바구니 아이템을 가져옵니다.
             return cartDAO.getCartItems(userId);
         } catch (Exception e) {
-            // 예외 처리 (로그 기록 등)
             e.printStackTrace();
-            // 예외를 재던지거나 빈 리스트를 반환할 수 있습니다.
-            // throw new RuntimeException("Failed to fetch cart items", e);
             return Collections.emptyList();
         }
     }
 
-    // 추가적인 비즈니스 로직이 필요한 경우 여기에 메서드를 추가할 수 있습니다.
+    // 장바구니에 아이템을 추가하는 메서드
+    public void addCartItem(int userId, int productId, int quantity, int price) {
+        try {
+            // 데이터베이스에서 해당 사용자와 상품의 장바구니 항목이 있는지 확인
+            CartItemVO existingItem = cartDAO.getCartItem(userId, productId);
+
+            if (existingItem != null) {
+                // 이미 장바구니에 동일한 상품이 있는 경우, 수량 업데이트
+                int updatedQuantity = existingItem.getQuantity() + quantity;
+                cartDAO.updateCartItemQuantity(userId, productId, updatedQuantity, price);
+            } else {
+                // 장바구니에 새로운 항목 추가
+                cartDAO.addCartItem(userId, productId, quantity, price);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+
 
 
