@@ -22,14 +22,10 @@ public class CartDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // 장바구니 아이템 가져오기
     public List<CartItemVO> getCartItems(int userId) {
-        String query = "SELECT ci.product_id, ci.quantity, ci.price, p.product_name AS product_name, p.image_url " +
-                       "FROM cart_items ci " +
-                       "JOIN products p ON ci.product_id = p.product_id " +
+        String query = "SELECT ci.product_id, ci.quantity, ci.price, p.product_name, p.image_url " +
+                       "FROM cart_items ci JOIN products p ON ci.product_id = p.product_id " +
                        "WHERE ci.user_id = ?";
-
-        // 쿼리 실행 및 결과 매핑
         return jdbcTemplate.query(query, new Object[]{userId}, (rs, rowNum) -> {
             CartItemVO item = new CartItemVO();
             item.setProductId(rs.getInt("product_id"));
@@ -39,5 +35,34 @@ public class CartDAO {
             item.setImageUrl(rs.getString("image_url"));
             return item;
         });
+    }
+
+    // 사용자와 상품으로 기존 장바구니 항목을 조회하는 메서드
+    public CartItemVO getCartItem(int userId, int productId) {
+        String query = "SELECT * FROM cart_items WHERE user_id = ? AND product_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(query, new Object[]{userId, productId}, (rs, rowNum) -> {
+                CartItemVO item = new CartItemVO();
+                item.setUserId(rs.getInt("user_id"));
+                item.setProductId(rs.getInt("product_id"));
+                item.setQuantity(rs.getInt("quantity"));
+                item.setPrice(rs.getInt("price"));
+                return item;
+            });
+        } catch (Exception e) {
+            return null;  // 장바구니에 동일한 상품이 없는 경우
+        }
+    }
+
+    // 장바구니에 새로운 항목을 추가하는 메서드
+    public void addCartItem(int userId, int productId, int quantity, int price) {
+        String query = "INSERT INTO cart_items (user_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(query, userId, productId, quantity, price);
+    }
+
+    // 장바구니 항목 수량을 업데이트하는 메서드
+    public void updateCartItemQuantity(int userId, int productId, int quantity, int price) {
+        String query = "UPDATE cart_items SET quantity = ? WHERE user_id = ? AND product_id = ?";
+        jdbcTemplate.update(query, quantity, userId, productId);
     }
 }
