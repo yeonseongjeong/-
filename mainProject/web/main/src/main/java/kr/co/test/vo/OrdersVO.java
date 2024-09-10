@@ -9,8 +9,8 @@ public class OrdersVO {
 	private Long orderId;
     private Long userId;
     private Date orderDate;
-    private Double totalAmount;
-    private String city;
-    private String streetAddress;
-    private String details;
+    private Double totalPrice;
+    private String address;
+    private String name;
+    private String phone;
 }

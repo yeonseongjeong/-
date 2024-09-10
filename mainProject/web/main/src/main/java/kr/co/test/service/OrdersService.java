@@ -7,26 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.test.repository.OrdersDAO;
 import kr.co.test.vo.OrdersVO;
 import kr.co.test.vo.OrderItemsVO;
+import kr.co.test.vo.OrderRequest;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
 public class OrdersService {
 
-    @Autowired
-    private OrdersDAO ordersDAO;
-
-    @Transactional
-    public Long placeOrder(OrdersVO order, List<OrderItemsVO> orderItems) {
-        // Insert order
-        ordersDAO.insertOrder(order);
-
-        // Insert order items
-        for (OrderItemsVO item : orderItems) {
-            item.setOrderId(order.getOrderId());
-            ordersDAO.insertOrderItem(item);
-        }
-
-        return order.getOrderId();
-    }
 }
+

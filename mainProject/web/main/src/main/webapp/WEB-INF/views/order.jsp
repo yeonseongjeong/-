@@ -169,7 +169,7 @@
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="fullName">이름</label> 
-                        <input type="text" class="form-control" id="fullName" name="fullName" placeholder="이름을 입력하세요" required>
+                        <input type="text" class="form-control" id="fullName" name="name" placeholder="이름을 입력하세요" required>
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="phone">전화번호</label> 
@@ -180,10 +180,7 @@
                     <label for="address">주소</label> 
                     <input type="text" class="form-control" id="address" name="address" placeholder="주소를 입력하세요" required>
                 </div>
-                <div class="form-group mt-3">
-                    <label for="email">이메일</label> 
-                    <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요" required>
-                </div>
+
                 <input type="hidden" id="totalPriceInput" name="totalPrice">
                 <div class="text-center mt-4">
                     <button type="submit" class="btn btn-success btn-submit">주문하기</button>
@@ -279,7 +276,7 @@
             // Get shipping information
             const formData = new FormData(event.target);
             const shippingInfo = {
-                fullName: formData.get('fullName'),
+                name: formData.get('name'),
                 phone: formData.get('phone'),
                 address: formData.get('address'),
                 email: formData.get('email'),
