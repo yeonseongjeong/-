@@ -15,8 +15,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+        <script>
+    // JSTL을 사용하여 Flash 메시지를 JSP에서 처리
+    <c:if test="${not empty message}">
+        alert('${message}');
+    </c:if>
+</script>
     <style>
         /* Your existing CSS styles */
+         .product-image {
+        width: 300px;
+        height: 300px;
+        object-fit: cover; /* 이미지 비율 유지하면서 300x300으로 자름 */
+    }
         .hero {
             padding: 20px;
             color: #fff;
@@ -138,20 +149,27 @@
 </head>
 
 <body>
-    <div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
-        <div class="container text-center">
-            <h1 class="display-4 text-light">테스트</h1>
-            <p class="lead text-light">test</p>
-        </div>
-        <!-- 마이페이지 링크 추가 -->
-        <a href="/mypage" class="position-absolute" style="top: 20px; right: 20px; text-decoration: none;">
-            <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
-        </a>
+    <!-- 헤더 시작 -->
+	<div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
+    <div class="container text-center">
+        <h1 class="display-4 text-light">Computer Peripherals Online Store</h1>
+        <!-- <p class="lead text-light">test</p> -->
     </div>
+    <!-- 마이페이지 링크 추가 -->
+    <a href="/mypage" class="position-absolute" style="top: 20px; right: 20px; text-decoration: none;">
+        <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
+        <!-- <span class="text-light"></span> -->
+    </a>
+     <!-- 장바구니 링크 추가 -->
+        <a href="/cart" class="icon-link" style="right: 80px;">
+            <i class="bi bi-cart"></i>
+        </a>
+</div>
+
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">쇼핑몰</a>
+            <a class="navbar-brand" href="/">컴퓨터쇼핑몰</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -166,18 +184,21 @@
                             Products
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Category 1</a></li>
-                            <li><a class="dropdown-item" href="#">Category 2</a></li>
+                            <li><a class="dropdown-item" href="#">Mouse</a></li>
+                            <li><a class="dropdown-item" href="#">Keyboard</a></li>
+                            <li><a class="dropdown-item" href="#">Monitor</a></li>
+                            <li><a class="dropdown-item" href="#">Webcam</a></li>
+                            <li><a class="dropdown-item" href="#">Speaker</a></li>
+                            <li><a class="dropdown-item" href="#">HeadPhone</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Special Offers</a></li>
+                            <li><a class="dropdown-item" href="/products">All products</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
+                        <a class="nav-link" href="#">Contact</a></li>
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -186,10 +207,11 @@
             </div>
         </div>
     </nav>
+    <!-- 헤더 끝 -->
 
     <div class="container">
         <div class="product">
-            <img src="https://via.placeholder.com/300" alt="Product Image">
+            <img src="${pageContext.request.contextPath}/resources/img/${product.imageUrl}" class="product-image" alt="Product Image">
             <div class="details">
                 <div class="product-info">
                     <h1>${product.productName}</h1>

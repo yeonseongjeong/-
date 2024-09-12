@@ -16,6 +16,12 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
     <style>
+    	.card-img-top {
+        width: 300px;
+        height: 200px !important;
+        object-fit: cover; /* 이미지가 고정된 크기에 맞도록 자름 */
+    }
+    
         .carousel-item {
             padding: 20px;
         }
@@ -41,10 +47,11 @@
 </head>
 
 <body>
+	<!-- 헤더 시작 -->
 	<div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
     <div class="container text-center">
-        <h1 class="display-4 text-light">테스트</h1>
-        <p class="lead text-light">test</p>
+        <h1 class="display-4 text-light">Computer Peripherals Online Store</h1>
+        <!-- <p class="lead text-light">test</p> -->
     </div>
     <!-- 마이페이지 링크 추가 -->
     <a href="/mypage" class="position-absolute" style="top: 20px; right: 20px; text-decoration: none;">
@@ -60,7 +67,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">쇼핑몰</a>
+            <a class="navbar-brand" href="/">컴퓨터쇼핑몰</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -75,10 +82,14 @@
                             Products
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Category 1</a></li>
-                            <li><a class="dropdown-item" href="#">Category 2</a></li>
+                            <li><a class="dropdown-item" href="#">Mouse</a></li>
+                            <li><a class="dropdown-item" href="#">Keyboard</a></li>
+                            <li><a class="dropdown-item" href="#">Monitor</a></li>
+                            <li><a class="dropdown-item" href="#">Webcam</a></li>
+                            <li><a class="dropdown-item" href="#">Speaker</a></li>
+                            <li><a class="dropdown-item" href="#">HeadPhone</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Special Offers</a></li>
+                            <li><a class="dropdown-item" href="/products">All products</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -94,6 +105,7 @@
             </div>
         </div>
     </nav>
+    <!-- 헤더 끝 -->
 
     <!-- Carousel 슬라이드 시작 -->
     <div id="productCarousel" class="carousel slide">
@@ -103,20 +115,19 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-2">
-                            <div class="card">
-                                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product 1">
+                            <div class="card" onclick="location.href='/product/1';">
+                                <img src="resources/img/로지텍G102.jpg" class="card-img-top" alt="Product 1">
                                 <div class="card-body">
                                     <h5 class="card-title">테스트1</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">테스트사진1</h6>
                                     <p class="card-text">테스트1 설명.</p>
                                     <p class ="pid" hidden>1</p>
-									<a class="product_link" href="/product/1">자세히보기</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="card">
-                                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product 2">
+                                <img src="resources/img/2.jpg" class="card-img-top" alt="Product 2">
                                 <div class="card-body">
                                     <h5 class="card-title">테스트2</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">테스트사진2</h6>
@@ -126,7 +137,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="card">
-                                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product 3">
+                                <img src="resources/img/DELL UltraSharp U2723QE.jpg" class="card-img-top" alt="Product 3">
                                 <div class="card-body">
                                     <h5 class="card-title">테스트3</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">테스트사진3</h6>
