@@ -145,6 +145,16 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .icon-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            color: white;
+        }
+        .icon-link i {
+            font-size: 2rem;
+        }
     </style>
 </head>
 
@@ -237,16 +247,35 @@
 
         <!-- 버튼 그룹 추가 -->
         <div class="button-group">
-            <a href="/buy/${product.productId}" class="buy-button">구매하기</a>
-            <form action="/addToCart" method="post" style="display: inline;">
-                <input type="hidden" name="productId" value="${product.productId}">
-                <input type="hidden" name="quantity" id="hiddenQuantity" value="1">
-                <!-- 기본 수량 1 -->
-                <input type="hidden" name="price" value="${product.price}">
-                <!-- 가격 정보 수정 -->
-                <button type="submit" class="cart-button">장바구니로 보내기</button>
-            </form>
-        </div>
+    <!-- 구매하기 폼 -->
+    <form id="buyForm" action="/order" method="GET" style="display: inline;">
+        <input type="hidden" name="productName" value="${product.productName}">
+        <input type="hidden" name="productId" value="${product.productId}">
+        <input type="hidden" name="price" value="${product.price}">
+        <input type="hidden" name="quantity" id="hiddenQuantityBuy" value="1"> <!-- id 변경 -->
+        <input type="hidden" name="imageUrl" value="${pageContext.request.contextPath}/resources/img/${product.imageUrl}">
+        <button type="submit" class="buy-button">구매하기</button>
+    </form>
+
+    <!-- 장바구니 담기 폼 -->
+    <form action="/addToCart" method="post" style="display: inline;">
+        <input type="hidden" name="productId" value="${product.productId}">
+        <input type="hidden" name="quantity" id="hiddenQuantityCart" value="1"> <!-- id 변경 -->
+        <input type="hidden" name="price" value="${product.price}">
+        <button type="submit" class="cart-button">장바구니</button>
+    </form>
+
+    <!-- 목록으로 돌아가기 버튼 -->
+    <%
+        String referer = request.getHeader("referer");  // pageContext 대신 request 객체 사용
+        if (referer == null) {
+            referer = "/defaultPage"; // 기본 이동할 페이지 설정
+        }
+    %>
+    <a href="<%= referer %>" class="cart-button" style="background-color:black;">목록으로 돌아가기</a>
+</div>
+
+
 
         <!-- 비슷한 카테고리 상품들 추가 -->
         <div class="related-products">

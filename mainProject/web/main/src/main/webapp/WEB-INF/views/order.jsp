@@ -237,83 +237,82 @@
 	</div>
 
 	<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const orderItemsElement = document.getElementById('orderItems');
-        const orderTotalElement = document.getElementById('orderTotal');
-        const orderGrandTotalElement = document.getElementById('orderGrandTotal');
-        const totalPriceInput = document.getElementById('totalPriceInput');
-        const shippingCost = 3000;
+	document.addEventListener('DOMContentLoaded', function () {
+	    const orderItemsElement = document.getElementById('orderItems');
+	    const orderGrandTotalElement = document.getElementById('orderGrandTotal');
+	    const totalPriceInput = document.getElementById('totalPriceInput');
+	    const shippingCost = 3000;
 
-        // Get URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const cartItemsParam = urlParams.get('cartItems');
+	    // URL에서 전달된 파라미터를 확인
+	    const urlParams = new URLSearchParams(window.location.search);
+	    const cartItemsParam = urlParams.get('cartItems');  // 장바구니에서 온 경우
+	    const productName = urlParams.get('productName');    // 상품 상세에서 온 경우
 
-        // Debug: log URL parameters
-        console.log('URL Parameters:', cartItemsParam);
+	    let totalPrice = 0;
 
-        // Ensure cartItemsParam is valid
-        if (!cartItemsParam) {
-            console.error('No cartItems parameter found');
-            return;
-        }
+	    if (cartItemsParam) {
+	        // 장바구니에서 온 경우
+	        const cartItems = JSON.parse(decodeURIComponent(cartItemsParam));
 
-        // Parse cartItems parameter
-        let cartItems;
-        try {
-            cartItems = JSON.parse(decodeURIComponent(cartItemsParam));
-            console.log('Cart Items:', cartItems);
-        } catch (e) {
-            console.error('Error parsing cartItems:', e);
-            return;
-        }
+	        cartItems.forEach(function(item) {
+	            const itemTotal = item.price * item.quantity;
+	            totalPrice += itemTotal;
 
-        // Check if cartItems is an array
-        if (!Array.isArray(cartItems)) {
-            console.error('cartItems is not an array:', cartItems);
-            return;
-        }
+	            const row = '<tr>' +
+	                '<td>' +
+	                    '<div class="d-flex align-items-center">' +
+	                        '<img src="' + item.imageUrl + '" class="img-thumbnail" alt="상품 이미지">' +
+	                        '<span class="ms-3">' + item.productName + '</span>' +
+	                    '</div>' +
+	                '</td>' +
+	                '<td>₩' + item.price.toLocaleString() + '</td>' +
+	                '<td>' + item.quantity + '</td>' +
+	                '<td>₩' + itemTotal.toLocaleString() + '</td>' +
+	            '</tr>';
+	            orderItemsElement.innerHTML += row;
+	        });
 
-        let totalPrice = 0;
+	        // hidden 필드에 값 설정
+	        document.getElementById('productIds').value = cartItems.map(item => item.productId).join(',');
+	        document.getElementById('quantities').value = cartItems.map(item => item.quantity).join(',');
+	        document.getElementById('prices').value = cartItems.map(item => item.price).join(',');
 
-        cartItems.forEach(item => {
-            const price = Number(item.price);
-            const quantity = Number(item.quantity);
-            const productId = Number(item.productId);
-            const imageUrl = item.imageUrl; // 이미지 URL 가져오기
+	    } else if (productName) {
+	        // 단일 상품 구매에서 온 경우
+	        const price = urlParams.get('price');
+	        const quantity = urlParams.get('quantity');
+	        const productId = urlParams.get('productId');
+	        const imageUrl = urlParams.get('imageUrl'); // 이미지 URL 추가
+	        const itemTotal = price * quantity;
+	        totalPrice = itemTotal;
 
-            if (isNaN(price) || isNaN(quantity)) {
-                console.error('Invalid item data:', item);
-                return;
-            }
+	        const row = '<tr>' +
+	            '<td>' +
+	                '<div class="d-flex align-items-center">' +
+	                    '<img src="' + imageUrl + '" class="img-thumbnail" alt="상품 이미지">' +
+	                    '<span class="ms-3">' + productName + '</span>' +
+	                '</div>' +
+	            '</td>' +
+	            '<td>₩' + parseInt(price).toLocaleString() + '</td>' +
+	            '<td>' + quantity + '</td>' +
+	            '<td>₩' + itemTotal.toLocaleString() + '</td>' +
+	        '</tr>';
+	        orderItemsElement.innerHTML += row;
 
-            const itemTotal = quantity * price;
-            totalPrice += itemTotal;
+	        // hidden 필드에 값 설정
+	        document.getElementById('productIds').value = productId;
+	        document.getElementById('quantities').value = quantity;
+	        document.getElementById('prices').value = price;
+	    }
 
-            const row = document.createElement('tr');
-            row.innerHTML = 
-                '<td>' +
-                    '<div class="d-flex align-items-center">' +
-                        '<img src="' + imageUrl + '" class="img-thumbnail" alt="상품 이미지">' +
-                        '<span class="ms-3">' + item.productName + '</span>' +
-                    '</div>' +
-                '</td>' +
-                '<td>₩' + price.toLocaleString() + '</td>' +
-                '<td>' + quantity + '</td>' +
-                '<td>₩' + itemTotal.toLocaleString() + '</td>';
+	    // 총합계 및 배송비 계산
+	    orderGrandTotalElement.innerText = '₩' + (totalPrice + shippingCost).toLocaleString();
+	    totalPriceInput.value = totalPrice + shippingCost;
+	});
 
-            orderItemsElement.appendChild(row);
-        });
 
-        // Update totals
-        orderTotalElement.innerText = '₩' + totalPrice.toLocaleString();
-        orderGrandTotalElement.innerText = '₩' + (totalPrice + shippingCost).toLocaleString();
-        totalPriceInput.value = totalPrice + shippingCost;
+	    
 
-        // 주문 항목 데이터를 숨겨진 필드에 설정
-        document.getElementById('productIds').value = cartItems.map(item => item.productId).join(',');
-        document.getElementById('quantities').value = cartItems.map(item => item.quantity).join(',');
-        document.getElementById('prices').value = cartItems.map(item => item.price).join(',');
-    });
-    </script>
+</script>
 </body>
 </html>

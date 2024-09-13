@@ -36,6 +36,11 @@ public class OrdersController {
         @RequestParam("prices") String prices,
         HttpSession session) {
 
+    	// 입력된 값 출력해보기
+        System.out.println("Product IDs: " + productIds);
+        System.out.println("Quantities: " + quantities);
+        System.out.println("Prices: " + prices);
+    	
         Integer userIdInt = (Integer) session.getAttribute("userId");
         if (userIdInt == null) {
             return "redirect:/login"; 
