@@ -1,43 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="true" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>테스트 쇼핑몰 페이지 - 마이페이지</title>
-    <link rel="stylesheet" href="https://s3.ap-northeast-2.amazonaws.com/materials.spartacodingclub.kr/easygpt/default.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-    <script>
-        // 로그인 알림 및 리다이렉트 처리
-        window.onload = function() {
-            if (${loginRequired}) {
-                alert("로그인이 필요합니다.");
-                window.location.href = "/login"; // 로그인 페이지로 리다이렉트
-            }
-        }
-    </script>
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <style>
-    .icon-link {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            text-decoration: none;
-            color: white;
+        .confirmation-box {
+            max-width: 500px;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding: 40px;
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            text-align: center;
         }
-        .icon-link i {
-            font-size: 2rem;
+        .confirmation-box i {
+            font-size: 100px;
+            color: #28a745;
+        }
+        .confirmation-box h1 {
+            font-size: 2.5rem;
+            margin-top: 20px;
+            color: #333;
+        }
+        .confirmation-box p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
     </style>
 </head>
-
 <body>
     <!-- 헤더 시작 -->
 	<div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
@@ -98,29 +107,29 @@
         </div>
     </nav>
     <!-- 헤더 끝 -->
+    <div class="confirmation-box">
+        <!-- 커다란 체크 표시 -->
+        <i class="bi bi-check-circle-fill"></i>
 
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">마이페이지</h2>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">내 정보</h5>
-                <!-- 세션에서 가져온 유저 정보를 출력 -->
-                <c:choose>
-                    <c:when test="${not empty sessionScope.user}">
-                        <p class="card-text">이름: ${sessionScope.user.username}</p>
-                        <p class="card-text">이메일: ${sessionScope.user.email}</p>
-                        <p class="card-text">유저아이디: ${sessionScope.user.userId}</p>
-                    </c:when>
-                    <c:otherwise>
-                        <p>로그인 정보가 없습니다. 로그인 해주세요.</p>
-                    </c:otherwise>
-                </c:choose>
-                <a href="/edit-profile" class="btn btn-primary">프로필 수정</a>
-                <a href="/logout" class="btn btn-secondary">로그아웃</a>
-            </div>
-        </div>
+        <!-- 주문 완료 메시지 -->
+        <h1>주문 완료</h1>
+        <p>주문이 성공적으로 완료되었습니다!</p>
+
+        <!-- 버튼들 -->
+        <a href="/" class="btn btn-success btn-custom">홈으로 가기</a>
+        <a href="/mypage" class="btn btn-outline-primary btn-custom">마이페이지로 가기</a>
     </div>
-
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 세션에서 orderStatus 가져오기
+    var orderStatus = '<%= session.getAttribute("orderStatus") %>';
+    
+    if (orderStatus !== 'success') {
+        alert('비정상적인 접근입니다.');
+        window.location.href = '/'; // 홈 페이지로 리디렉션
+    }
+});
+    </script>
 </body>
-
 </html>
+

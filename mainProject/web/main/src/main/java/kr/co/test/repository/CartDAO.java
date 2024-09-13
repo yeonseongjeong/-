@@ -65,4 +65,9 @@ public class CartDAO {
         String query = "UPDATE cart_items SET quantity = ? WHERE user_id = ? AND product_id = ?";
         jdbcTemplate.update(query, quantity, userId, productId);
     }
+    public void deleteCartItem(int userId, int productId) {
+        String query = "DELETE FROM cart_items WHERE user_id = ? AND product_id = ?";
+        jdbcTemplate.update(query, userId, productId);
+    }
+
 }

@@ -9,4 +9,5 @@ public class ProductVO {
     private int categoryId;
     private int price;
     private Integer stockQuantity;
+    private String imageUrl;
 }

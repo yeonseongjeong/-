@@ -44,6 +44,15 @@ public class CartService {
             e.printStackTrace();
         }
     }
+    
+    public void deleteCartItem(int userId, int productId) {
+        try {
+            cartDAO.deleteCartItem(userId, productId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 

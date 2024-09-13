@@ -28,22 +28,17 @@ public class ProductController {
     private ProductDescriptionService productDescriptionService;
     @GetMapping("/product/{productId}")
     public String showProductDetail(@PathVariable("productId") int productId, Model model) {
-        // 제품 정보를 가져옵니다.
         ProductVO product = productService.getProductById(productId);
 		ProductDescriptionVO description = productDescriptionService.getProductDescriptionById(productId);
-        // 모델에 제품 정보를 추가합니다.
         model.addAttribute("product", product);
         model.addAttribute("description",description);
-        // JSP 뷰를 반환합니다.
         return "product";
     }
     @GetMapping("/products")
     public String showAllProducts(Model model) {
-        // 모든 제품 정보를 가져옵니다.
         List<ProductVO> products = productService.getProducts();
-        // 모델에 모든 제품 정보를 추가합니다.
         model.addAttribute("products", products);
-        // JSP 뷰를 반환합니다.
         return "products";
     }
+    
 }

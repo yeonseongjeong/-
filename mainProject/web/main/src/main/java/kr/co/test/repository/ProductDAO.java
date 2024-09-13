@@ -31,7 +31,7 @@ public class ProductDAO {
     }
     
     public ProductVO getProductById(int productId) {
-        String sql = "SELECT product_id, product_name, category_id, price, stock_quantity FROM products WHERE product_id = ?";
+        String sql = "SELECT product_id, product_name, category_id, price, stock_quantity, image_url FROM products WHERE product_id = ?";
         
         List<ProductVO> products = jdbcTemplate.query(sql, new Object[]{productId}, new RowMapper<ProductVO>() {
             @Override
@@ -42,19 +42,20 @@ public class ProductDAO {
                 product.setCategoryId(rs.getInt("category_id"));
                 product.setPrice(rs.getInt("price"));
                 product.setStockQuantity(rs.getInt("stock_quantity"));
+                product.setImageUrl(rs.getString("image_url"));
                 return product;
             }
         });
         
         if (products.isEmpty()) {
-            return null;  // ÀûÀýÇÑ ¿¹¿Ü Ã³¸®µµ °í·ÁÇÒ ¼ö ÀÖ½À´Ï´Ù.
+            return null;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
         }
         
         return products.get(0);
     }
-    // ¸ðµç Á¦Ç°À» Á¶È¸ÇÏ´Â ¸Þ¼­µå Ãß°¡
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
     public List<ProductVO> getProducts() {
-        String sql = "SELECT product_id, product_name, category_id, price, stock_quantity FROM products";
+        String sql = "SELECT product_id, product_name, category_id, price, stock_quantity, image_url FROM products";
         
         return jdbcTemplate.query(sql, new RowMapper<ProductVO>() {
             @Override
@@ -65,6 +66,7 @@ public class ProductDAO {
                 product.setCategoryId(rs.getInt("category_id"));
                 product.setPrice(rs.getInt("price"));
                 product.setStockQuantity(rs.getInt("stock_quantity"));
+                product.setImageUrl(rs.getString("image_url"));
                 return product;
             }
         });

@@ -32,63 +32,83 @@
         }
     </script>
 <style>
-/* 스타일 추가 가능 */
+.img-thumbnail {
+	width: 50px;
+	height: 50px;
+	object-fit: cover; /* 이미지가 고정된 크기에 맞도록 자름 */
+}
+.icon-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            color: white;
+        }
+        .icon-link i {
+            font-size: 2rem;
+        }
 </style>
 </head>
 <body>
-	<div class="hero d-flex align-items-center justify-content-center"
-		style="background-color: #333333; position: relative;">
-		<div class="container text-center">
-			<h1 class="display-4 text-light">테스트</h1>
-			<p class="lead text-light">test</p>
-		</div>
-		<!-- 마이페이지 링크 추가 -->
-		<a href="/mypage" class="position-absolute"
-			style="top: 20px; right: 20px; text-decoration: none;"> <i
-			class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
-		</a>
-		<!-- 장바구니 링크 추가 -->
-		<a href="/cart" class="icon-link"
-			style="position: absolute; top: 20px; right: 80px; text-decoration: none; color: white;">
-			<i class="bi bi-cart" style="font-size: 2rem;"></i>
-		</a>
-	</div>
+	<!-- 헤더 시작 -->
+	<div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
+    <div class="container text-center">
+        <h1 class="display-4 text-light">Computer Peripherals Online Store</h1>
+        <!-- <p class="lead text-light">test</p> -->
+    </div>
+    <!-- 마이페이지 링크 추가 -->
+    <a href="/mypage" class="position-absolute" style="top: 20px; right: 20px; text-decoration: none;">
+        <i class="bi bi-person-circle text-light" style="font-size: 2rem;"></i>
+        <!-- <span class="text-light"></span> -->
+    </a>
+     <!-- 장바구니 링크 추가 -->
+        <a href="/cart" class="icon-link" style="right: 80px;">
+            <i class="bi bi-cart"></i>
+        </a>
+</div>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="/">쇼핑몰</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNav"
-				aria-controls="navbarNav" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Products </a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Category 1</a></li>
-							<li><a class="dropdown-item" href="#">Category 2</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Special Offers</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link" href="#">About Us</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form>
-			</div>
-		</div>
-	</nav>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">컴퓨터쇼핑몰</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Mouse</a></li>
+                            <li><a class="dropdown-item" href="#">Keyboard</a></li>
+                            <li><a class="dropdown-item" href="#">Monitor</a></li>
+                            <li><a class="dropdown-item" href="#">Webcam</a></li>
+                            <li><a class="dropdown-item" href="#">Speaker</a></li>
+                            <li><a class="dropdown-item" href="#">HeadPhone</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/products">All products</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a></li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- 헤더 끝 -->
 
 	<!-- 장바구니 목록 -->
 	<div class="container mt-5">
@@ -113,7 +133,7 @@
 								<td>
 									<div class="d-flex align-items-center">
 										<img
-											src="path/to/image/${item.productName}.jpg"
+											src="${pageContext.request.contextPath}/resources/img/${item.imageUrl}"
 											class="img-thumbnail" alt="상품 이미지"> <span class="ms-3">${item.productName}</span>
 									</div>
 								</td>
@@ -122,14 +142,14 @@
 											value="${item.price}" /></span></td>
 								<td><input type="number" class="form-control quantity"
 									value="${item.quantity}" min="1" max="10" style="width: 80px;"
-									data-price="${item.price}" data-id="${item.productId}" data-name="${item.productName}">
-								</td>
+									data-price="${item.price}" data-id="${item.productId}"
+									data-name="${item.productName}"></td>
 								<td><span class="total"><fmt:formatNumber
 											value="${item.price * item.quantity}" /></span></td>
 								<td>
 									<form action="deleteCartItem" method="POST">
-										<input type="hidden" name="productName"
-											value="${item.productName}">
+										<input type="hidden" name="productId"
+											value="${item.productId}">
 										<button class="btn btn-danger btn-sm" type="submit">
 											<i class="bi bi-trash"></i> 삭제
 										</button>
@@ -204,22 +224,24 @@ document.addEventListener('DOMContentLoaded', function () {
     updateTotals();
 
     // Handle checkout button click
-    checkoutButton.addEventListener('click', function () {
-        const cartItems = [];
-        quantityInputs.forEach(input => {
-            const productName = input.dataset.name;
-            const quantity = input.value;
-            const price = input.dataset.price;
+checkoutButton.addEventListener('click', function () {
+    const cartItems = [];
+    quantityInputs.forEach(input => {
+        const productName = input.dataset.name;
+        const quantity = input.value;
+        const price = input.dataset.price;
+        const productId = input.dataset.id;
+        const imageUrl = input.closest('tr').querySelector('img').src; // 이미지 URL 가져오기
 
-            cartItems.push({ productName, quantity, price });
-        });
+        cartItems.push({ productName, quantity, price, productId, imageUrl });
+    });
 
-        if (cartItems.length > 0) {
-            // Redirect to checkout page with cart items
-            window.location.href = '/order?cartItems=' + encodeURIComponent(JSON.stringify(cartItems));
-        } else {
-            alert("장바구니가 비어 있습니다.");
-        }
+    if (cartItems.length > 0) {
+        // Redirect to checkout page with cart items
+        window.location.href = '/order?cartItems=' + encodeURIComponent(JSON.stringify(cartItems));
+    } else {
+        alert("장바구니가 비어 있습니다.");
+    }
     });
 });
 </script>

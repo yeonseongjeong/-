@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.test.service.CartService;
 import kr.co.test.vo.CartItemVO;
@@ -51,8 +52,9 @@ public class CartController {
     @PostMapping("/addToCart")
     public String addToCart(@RequestParam("productId") int productId, 
                             @RequestParam("quantity") int quantity, 
-                            @RequestParam("price") int price,  // 가격 정보 추가
-                            HttpSession session, Model model) {
+                            @RequestParam("price") int price,
+                            HttpSession session, Model model,
+                            RedirectAttributes redirectAttributes) {
 
         // 세션에서 사용자 정보 가져오기
         UserVO user = (UserVO) session.getAttribute("user");
@@ -66,8 +68,28 @@ public class CartController {
         // 장바구니에 아이템 추가
         int userId = user.getUserId();
         cartService.addCartItem(userId, productId, quantity, price);  // 가격 정보 추가
+        redirectAttributes.addFlashAttribute("message", "상품이 장바구니에 성공적으로 추가되었습니다.");
+        // 장바구니 페이지로 리다이렉트
+        return "redirect:/product/" + productId;
+    }
+    
+    @PostMapping("/deleteCartItem")
+    public String deleteCartItem(@RequestParam("productId") int productId, HttpSession session, Model model) {
+        // 세션에서 사용자 정보 가져오기
+        UserVO user = (UserVO) session.getAttribute("user");
+
+        if (user == null) {
+            // 사용자가 로그인하지 않았을 경우
+            model.addAttribute("loginRequired", true);
+            return "redirect:/login";  // 로그인 페이지로 리다이렉션
+        }
+
+        // 장바구니에서 아이템 삭제
+        int userId = user.getUserId();
+        cartService.deleteCartItem(userId, productId);
 
         // 장바구니 페이지로 리다이렉트
-        return "redirect:/";
+        return "redirect:/cart";
     }
+
 }

@@ -31,10 +31,11 @@
 </head>
 
 <body>
+	<!-- 헤더 시작 -->
 	<div class="hero d-flex align-items-center justify-content-center" style="background-color: #333333; position: relative;">
     <div class="container text-center">
-        <h1 class="display-4 text-light">테스트</h1>
-        <p class="lead text-light">test</p>
+        <h1 class="display-4 text-light">Computer Peripherals Online Store</h1>
+        <!-- <p class="lead text-light">test</p> -->
     </div>
     <!-- 마이페이지 링크 추가 -->
     <a href="/mypage" class="position-absolute" style="top: 20px; right: 20px; text-decoration: none;">
@@ -42,19 +43,15 @@
         <!-- <span class="text-light"></span> -->
     </a>
      <!-- 장바구니 링크 추가 -->
-        <a href="/cart" class="icon-link" style="position: absolute;
-            top: 20px;
-            right: 80px;
-            text-decoration: none;
-            color: white;">
-            <i class="bi bi-cart" style="font-size: 2rem;"></i>
+        <a href="/cart" class="icon-link" style="right: 80px;">
+            <i class="bi bi-cart"></i>
         </a>
 </div>
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">쇼핑몰</a>
+            <a class="navbar-brand" href="/">컴퓨터쇼핑몰</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -69,10 +66,14 @@
                             Products
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Category 1</a></li>
-                            <li><a class="dropdown-item" href="#">Category 2</a></li>
+                            <li><a class="dropdown-item" href="#">Mouse</a></li>
+                            <li><a class="dropdown-item" href="#">Keyboard</a></li>
+                            <li><a class="dropdown-item" href="#">Monitor</a></li>
+                            <li><a class="dropdown-item" href="#">Webcam</a></li>
+                            <li><a class="dropdown-item" href="#">Speaker</a></li>
+                            <li><a class="dropdown-item" href="#">HeadPhone</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Special Offers</a></li>
+                            <li><a class="dropdown-item" href="/products">All products</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -88,6 +89,7 @@
             </div>
         </div>
     </nav>
+    <!-- 헤더 끝 -->
 
    	<div class="container mt-5">
         <h2 class="text-center mb-4">회원가입</h2>
