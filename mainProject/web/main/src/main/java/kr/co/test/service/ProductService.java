@@ -33,6 +33,8 @@ public class ProductService {
     public List<ProductVO> getRandomRelatedProducts(int categoryId, int excludedProductId) {
         return productDAO.getRandomProductsByCategoryId(categoryId, excludedProductId);
     }
-
-    // �߰����� ���� �޼ҵ���� ���⿡ �ۼ��� �� �ֽ��ϴ�.
+    
+    public void addProduct(ProductVO product) {
+        productDAO.insertProduct(product);
+    }
 }
