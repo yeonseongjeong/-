@@ -71,5 +71,47 @@ public class ProductDAO {
             }
         });
     }
+    public List<ProductVO> getProductsByCategoryId(int categoryId) {
+        String sql = "SELECT product_id, product_name, category_id, price, stock_quantity, image_url FROM products WHERE category_id = ?";
+        
+        return jdbcTemplate.query(sql, new Object[]{categoryId}, new RowMapper<ProductVO>() {
+            @Override
+            public ProductVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ProductVO product = new ProductVO();
+                product.setProductId(rs.getInt("product_id"));
+                product.setProductName(rs.getString("product_name"));
+                product.setCategoryId(rs.getInt("category_id"));
+                product.setPrice(rs.getInt("price"));
+                product.setStockQuantity(rs.getInt("stock_quantity"));
+                product.setImageUrl(rs.getString("image_url"));
+                return product;
+            }
+        });
+    }
+    public List<ProductVO> getRandomProductsByCategoryId(int categoryId, int excludedProductId) {
+        String sql = "SELECT * FROM ( " +
+                     "    SELECT product_id, product_name, category_id, price, stock_quantity, image_url " +
+                     "    FROM products " +
+                     "    WHERE category_id = ? AND product_id != ? " +
+                     "    ORDER BY DBMS_RANDOM.VALUE " +
+                     ") WHERE ROWNUM <= 3";
+
+        return jdbcTemplate.query(sql, new Object[]{categoryId, excludedProductId}, new RowMapper<ProductVO>() {
+            @Override
+            public ProductVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ProductVO product = new ProductVO();
+                product.setProductId(rs.getInt("product_id"));
+                product.setProductName(rs.getString("product_name"));
+                product.setCategoryId(rs.getInt("category_id"));
+                product.setPrice(rs.getInt("price"));
+                product.setStockQuantity(rs.getInt("stock_quantity"));
+                product.setImageUrl(rs.getString("image_url"));
+                return product;
+            }
+        });
+    }
+
+
+
     
 }

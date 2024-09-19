@@ -227,15 +227,18 @@
                     <h1>${product.productName}</h1>
                     <p class="price">가격: <span id="price">${product.price}</span>원</p>
                 </div>
-                <div class="quantity-controls">
-                    <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(-1)">-</button>
-                    <input type="number" id="quantity" value="1" min="1" />
-                    <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(1)">+</button>
-                </div>
-                <div class="stock-info">
-                    <p>재고: ${product.stockQuantity}</p>
-                    <p class="total-price">총 가격: <span id="totalPrice">${product.price}</span>원</p>
-                </div>
+                <!-- 수량 조절 부분 -->
+				<div class="quantity-controls">
+				    <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(-1)">-</button>
+				    <input type="number" id="quantity" value="1" min="1" />
+				    <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity(1)">+</button>
+				</div>
+				
+				<!-- 재고 정보 부분 -->
+				<div class="stock-info">
+				    <p>재고: ${product.stockQuantity}</p>
+				    <p class="total-price">총 가격: <span id="totalPrice">${product.price}</span>원</p>
+				</div>
             </div>
         </div>
 
@@ -274,76 +277,55 @@
     %>
     <a href="<%= referer %>" class="cart-button" style="background-color:black;">목록으로 돌아가기</a>
 </div>
-
-
-
-        <!-- 비슷한 카테고리 상품들 추가 -->
-        <div class="related-products">
-            <h2>비슷한 카테고리의 상품들</h2>
-            <div class="row">
-                <!-- 반복되는 카드 예제 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Related Product 1">
-                        <div class="card-body">
-                            <h5 class="card-title">상품명 1</h5>
-                            <p class="card-text">가격: 10,000원</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Related Product 2">
-                        <div class="card-body">
-                            <h5 class="card-title">상품명 2</h5>
-                            <p class="card-text">가격: 15,000원</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/200" class="card-img-top" alt="Related Product 3">
-                        <div class="card-body">
-                            <h5 class="card-title">상품명 3</h5>
-                            <p class="card-text">가격: 20,000원</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	
+		<!-- 비슷한 카테고리 상품들 추가 -->
+		<div class="related-products">
+		    <h2>비슷한 카테고리의 상품들</h2>
+		    <div class="row">
+		        <c:forEach var="relatedProduct" items="${relatedProducts}">
+		            <div class="col-md-4">
+		                <div class="card">
+		                    <img src="${pageContext.request.contextPath}/resources/img/${relatedProduct.imageUrl}" class="card-img-top" alt="${relatedProduct.productName}">
+		                    <div class="card-body">
+		                        <h5 class="card-title">${relatedProduct.productName}</h5>
+		                        <p class="card-text">가격: ${relatedProduct.price}원</p>
+		                        <a href="/product/${relatedProduct.productId}" class="btn btn-primary">자세히보기</a>
+		                    </div>
+		                </div>
+		            </div>
+		        </c:forEach>
+		    </div>
+		</div>
+		
     </div>
 
     <script>
-        var stockQuantity = ${product.stockQuantity}; 
-        var pricePerUnit = ${product.price}; 
+    var stockQuantity = ${product.stockQuantity}; 
+    var pricePerUnit = ${product.price}; 
 
-        function changeQuantity(change) {
-            var quantityInput = document.getElementById('quantity');
-            var hiddenQuantityInput = document.getElementById('hiddenQuantity');
-            var currentQuantity = parseInt(quantityInput.value);
-            var newQuantity = currentQuantity + change;
+    function changeQuantity(change) {
+        var quantityInput = document.getElementById('quantity');
+        var currentQuantity = parseInt(quantityInput.value);
+        var newQuantity = currentQuantity + change;
 
-            // Ensure newQuantity is within bounds
-            if (newQuantity < 1) newQuantity = 1;
-            if (newQuantity > stockQuantity) newQuantity = stockQuantity;
+        // Ensure newQuantity is within bounds
+        if (newQuantity < 1) newQuantity = 1;
+        if (newQuantity > stockQuantity) newQuantity = stockQuantity;
 
-            quantityInput.value = newQuantity;
-            hiddenQuantityInput.value = newQuantity; // Sync hidden input
+        quantityInput.value = newQuantity;
 
-            // Update the total price based on the new quantity
-            updatePrice(newQuantity);
-        }
+        // Update the total price based on the new quantity
+        updatePrice(newQuantity);
+    }
 
-        function updatePrice(quantity) {
-            var totalPrice = pricePerUnit * quantity;
-            document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
-        }
-        
-        // Initialize total price on page load
-        updatePrice(parseInt(document.getElementById('quantity').value));
-    </script>
+    function updatePrice(quantity) {
+        var totalPrice = pricePerUnit * quantity;
+        document.getElementById('totalPrice').textContent = totalPrice.toLocaleString();
+    }
+    
+    // Initialize total price on page load
+    updatePrice(parseInt(document.getElementById('quantity').value));
+</script>
+
 </body>
 </html>

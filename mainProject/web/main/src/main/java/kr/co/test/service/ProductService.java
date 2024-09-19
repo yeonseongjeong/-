@@ -3,7 +3,9 @@ package kr.co.test.service;
 import kr.co.test.repository.ProductDAO;
 import kr.co.test.vo.ProductVO;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,12 @@ public class ProductService {
     public List<ProductVO> getProducts() {
         return productDAO.getProducts();
     }
-    
-    
-    // Ãß°¡ÀûÀÎ ¼­ºñ½º ¸Þ¼ÒµåµéÀ» ¿©±â¿¡ ÀÛ¼ºÇÒ ¼ö ÀÖ½À´Ï´Ù.
+    public List<ProductVO> getProductsByCategoryId(int categoryId) {
+        return productDAO.getProductsByCategoryId(categoryId);
+    }
+    public List<ProductVO> getRandomRelatedProducts(int categoryId, int excludedProductId) {
+        return productDAO.getRandomProductsByCategoryId(categoryId, excludedProductId);
+    }
+
+    // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 }
