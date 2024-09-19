@@ -21,6 +21,9 @@
 --------------------------------------------------------
 
    CREATE SEQUENCE  "MAINPROJECT"."USER_ID_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 5 NOCACHE  NOORDER  NOCYCLE ;
+
+   CREATE SEQUENCE cart_history_seq START WITH 1 INCREMENT BY 1 NOCACHE;
+
 --------------------------------------------------------
 --  DDL for Table CART_HISTORY
 --------------------------------------------------------
