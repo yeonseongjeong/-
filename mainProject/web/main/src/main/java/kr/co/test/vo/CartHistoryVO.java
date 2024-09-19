@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class CartHistoryVO {
 	private Long cartHistoryId;
-    private Long userId;
-    private Long productId;
+    private int userId;
+    private int productId;
     private String action; // 'ADD' or 'REMOVE'
     private java.util.Date actionDate;
 }

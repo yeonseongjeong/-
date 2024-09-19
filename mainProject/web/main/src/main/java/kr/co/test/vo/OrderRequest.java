@@ -12,7 +12,5 @@ public class OrderRequest {
     private String address;
     private String phone;
     private List<OrderItemDTO> items;
-
-    // Getters and setters
 }
 
