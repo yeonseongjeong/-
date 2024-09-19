@@ -26,6 +26,7 @@ public class ProductService {
         return productDAO.getProducts();
     }
     
-    
-    // 추가적인 서비스 메소드들을 여기에 작성할 수 있습니다.
+    public void addProduct(ProductVO product) {
+        productDAO.insertProduct(product);
+    }
 }

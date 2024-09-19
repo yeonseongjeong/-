@@ -21,8 +21,8 @@ public class ProductDAO {
     }
     
     public int insertProduct(ProductVO product){
-        String sql = "insert into products (product_id, product_name, category_id, price, stock_quantity) values (?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, product.getProductId(), product.getProductName(), product.getCategoryId(), product.getPrice(), product.getStockQuantity());    
+        String sql = "insert into products (product_id, product_name, category_id, price, stock_quantity, image_url) values (product_seq.NEXTVAL ,?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, product.getProductName(), product.getCategoryId(), product.getPrice(), product.getStockQuantity(), product.getImageUrl());    
     }
     
     public int deleteProduct(int productId) {
