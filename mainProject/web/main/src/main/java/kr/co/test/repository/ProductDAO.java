@@ -110,6 +110,11 @@ public class ProductDAO {
             }
         });
     }
+    public int updateProduct(ProductVO product) {
+        String sql = "UPDATE products SET product_name = ?, category_id = ?, price = ?, stock_quantity = ? WHERE product_id = ?";
+        return jdbcTemplate.update(sql, product.getProductName(), product.getCategoryId(), product.getPrice(), product.getStockQuantity(), product.getProductId());
+    }
+
 
 
 

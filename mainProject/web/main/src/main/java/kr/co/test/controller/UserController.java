@@ -1,5 +1,7 @@
 package kr.co.test.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.test.service.UserService;
 import kr.co.test.vo.UserVO;
@@ -85,4 +88,12 @@ public class UserController {
             return "signup"; // 회원가입 실패 시 회원가입 페이지로 돌아감
         }
     }
+    @GetMapping("/erp/userList")
+    public ModelAndView userList() {
+        List<UserVO> userList = userService.getAllUsers(); // 모든 유저를 가져오는 메서드 추가
+        ModelAndView mav = new ModelAndView("userList");
+        mav.addObject("userList", userList);
+        return mav;
+    }
+
 }

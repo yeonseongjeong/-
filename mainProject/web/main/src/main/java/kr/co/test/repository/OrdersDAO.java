@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
 
 import kr.co.test.vo.OrdersVO;
 
@@ -39,4 +40,19 @@ public class OrdersDAO {
         String selectSql = "SELECT order_seq.CURRVAL FROM dual";
         return jdbcTemplate.queryForObject(selectSql, Long.class);
     }
+    public List<OrdersVO> getAllOrders() {
+        String selectSql = "SELECT order_id, user_id, order_date, total_price, address, name, phone FROM orders";
+        return jdbcTemplate.query(selectSql, (rs, rowNum) -> {
+            OrdersVO order = new OrdersVO();
+            order.setOrderId(rs.getLong("order_id"));
+            order.setUserId(rs.getLong("user_id"));
+            order.setOrderDate(rs.getDate("order_date"));
+            order.setTotalPrice(rs.getDouble("total_price"));
+            order.setAddress(rs.getString("address"));
+            order.setName(rs.getString("name"));
+            order.setPhone(rs.getString("phone"));
+            return order;
+        });
+    }
+
 }

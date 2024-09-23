@@ -81,7 +81,7 @@ public class ProductController {
         System.out.println("Category ID: " + categoryId);
         System.out.println("Price: " + price);
         System.out.println("Stock Quantity: " + stockQuantity);
-        String uploadDir = "C:/RPAWork/workspace/mainproject/mainProject/web/main/src/main/webapp/resources/img";
+        String uploadDir = "D:/rpawork/workspace/mainproject/mainProject/web/main/src/main/webapp/resources/img";
         try {
             byte[] bytes = productImage.getBytes();
             Path path = Paths.get(uploadDir + File.separator + productImage.getOriginalFilename());
@@ -103,6 +103,42 @@ public class ProductController {
         }
 
         return "redirect:/addProduct";
+    }
+    @GetMapping("/erp/productList")
+    public String showAllErpProducts(Model model) {
+        List<ProductVO> products = productService.getProducts();
+        model.addAttribute("products", products);
+        return "productList";
+    }
+ // 제품 수정 페이지 보여주기
+    @GetMapping("/erp/editProduct/{productId}")
+    public String showEditProductPage(@PathVariable("productId") int productId, Model model) {
+        ProductVO product = productService.getProductById(productId);
+        model.addAttribute("product", product);
+        return "productEdit"; // 수정할 JSP 파일 이름
+    }
+
+    // 제품 수정 처리
+    @PostMapping("/updateProduct")
+    public String updateProduct(
+        @RequestParam("productId") int productId,
+        @RequestParam("productName") String productName,
+        @RequestParam("categoryId") int categoryId,
+        @RequestParam("price") int price,
+        @RequestParam("stockQuantity") int stockQuantity,
+        RedirectAttributes redirectAttributes
+    ) {
+        ProductVO product = new ProductVO();
+        product.setProductId(productId);
+        product.setProductName(productName);
+        product.setCategoryId(categoryId);
+        product.setPrice(price);
+        product.setStockQuantity(stockQuantity);
+
+        productService.updateProduct(product); // 수정 메서드 호출
+
+        redirectAttributes.addFlashAttribute("message", "상품이 성공적으로 수정되었습니다.");
+        return "redirect:/productList"; // 수정 후 상품 목록으로 리다이렉트
     }
 
 }

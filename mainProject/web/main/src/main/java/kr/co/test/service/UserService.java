@@ -2,6 +2,9 @@ package kr.co.test.service;
 
 import kr.co.test.vo.UserVO;
 import kr.co.test.repository.UserDAO;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +49,9 @@ public class UserService {
         }
         return null;
     }
+    public List<UserVO> getAllUsers() {
+        return userDAO.selectAllUsers(); // DAO에서 모든 유저를 가져오는 메서드 호출
+    }
+
 }
 
