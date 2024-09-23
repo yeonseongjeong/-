@@ -126,7 +126,7 @@ public class ProductController {
     }
 
     // 제품 수정 처리
-    @PostMapping("/updateProduct")
+    @PostMapping("/erp/updateProduct")
     public String updateProduct(
         @RequestParam("productId") int productId,
         @RequestParam("productName") String productName,
@@ -145,7 +145,7 @@ public class ProductController {
         productService.updateProduct(product); // 수정 메서드 호출
 
         redirectAttributes.addFlashAttribute("message", "상품이 성공적으로 수정되었습니다.");
-        return "redirect:/productList"; // 수정 후 상품 목록으로 리다이렉트
+        return "redirect:/erp/productList"; // 수정 후 상품 목록으로 리다이렉트
     }
 
 }
