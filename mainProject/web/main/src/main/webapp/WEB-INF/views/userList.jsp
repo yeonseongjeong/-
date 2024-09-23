@@ -48,6 +48,7 @@
                 <th>사용자 이름</th>
                 <th>이메일</th>
                 <th>전화번호</th>
+                <th>회원등급</th>
                 <th>행동</th>
             </tr>
         </thead>
@@ -61,6 +62,7 @@
                 <td><%= user.getUsername() %></td>
                 <td><%= user.getEmail() %></td>
                 <td><%= user.getPhoneNumber() %></td>
+                <td><%= user.getGrade() %></td>
                 <td>
                     <a href="/erp/user/edit?userId=<%= user.getUserId() %>" class="btn btn-warning btn-sm">수정</a>
                     <a href="/erp/user/delete?userId=<%= user.getUserId() %>" class="btn btn-danger btn-sm">삭제</a>

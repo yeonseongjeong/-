@@ -110,7 +110,7 @@
                     <c:when test="${not empty sessionScope.user}">
                         <p class="card-text">이름: ${sessionScope.user.username}</p>
                         <p class="card-text">이메일: ${sessionScope.user.email}</p>
-                        <p class="card-text">유저아이디: ${sessionScope.user.userId}</p>
+                        <p class="card-text">유저등급: ${sessionScope.user.grade}</p>
                     </c:when>
                     <c:otherwise>
                         <p>로그인 정보가 없습니다. 로그인 해주세요.</p>
