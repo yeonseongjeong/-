@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page session="true" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,7 +119,37 @@
                 <a href="/edit-profile" class="btn btn-primary">프로필 수정</a>
                 <a href="/logout" class="btn btn-secondary">로그아웃</a>
             </div>
+            
         </div>
+         <!-- 주문 내역 표시 -->
+    <div class="mt-4">
+        <h5>주문 내역</h5>
+        <c:choose>
+            <c:when test="${not empty orders}">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>주문 번호</th>
+                            <th>주문 날짜</th>
+                            <th>총 금액</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="order" items="${orders}">
+                            <tr>
+                                <td><a href="/order/${order.orderId}/items">${order.orderId}</a></td>
+                                <td><fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd"/></td>
+                                <td>₩${order.totalPrice}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <p>주문 내역이 없습니다.</p>
+            </c:otherwise>
+        </c:choose>
+    </div>
     </div>
 
 </body>
