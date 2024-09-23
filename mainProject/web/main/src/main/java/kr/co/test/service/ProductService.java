@@ -37,4 +37,8 @@ public class ProductService {
     public void addProduct(ProductVO product) {
         productDAO.insertProduct(product);
     }
+    public void updateProduct(ProductVO product) {
+        productDAO.updateProduct(product);
+    }
+
 }

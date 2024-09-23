@@ -8,6 +8,7 @@ import kr.co.test.vo.UserVO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class UserDAO {
@@ -55,4 +56,9 @@ public class UserDAO {
             return user;
         }
     }
+    public List<UserVO> selectAllUsers() {
+        String sql = "SELECT * FROM USERS";
+        return jdbcTemplate.query(sql, new UserRowMapper());
+    }
+
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -96,4 +97,12 @@ public class OrdersController {
         mav.addObject("cartItemsJson", cartItemsJson);
         return mav;
     }
+    @RequestMapping("/erp/orders")
+    public ModelAndView showOrderList() {
+        List<OrdersVO> orderList = ordersDAO.getAllOrders(); // 모든 주문을 가져오는 메서드
+        ModelAndView mav = new ModelAndView("orderList"); // orderList.jsp를 반환
+        mav.addObject("orderList", orderList);
+        return mav;
+    }
+
 }
