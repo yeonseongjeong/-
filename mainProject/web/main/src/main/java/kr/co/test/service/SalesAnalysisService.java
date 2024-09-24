@@ -26,5 +26,9 @@ public class SalesAnalysisService {
     public List<Map<String, Object>> getTotalSalesAndRevenueData(String startDate, String endDate, String periodType) {
         return salesAnalysisDAO.getTotalSalesAndRevenue(startDate, endDate, periodType);
     }
+    
+    public List<Map<String, Object>> getSalesDataByBrand(String startDate, String endDate){
+    	return salesAnalysisDAO.getSalesDataByBrand(startDate, endDate);
+    }
 
 }

@@ -10,4 +10,5 @@ public class ProductVO {
     private int price;
     private Integer stockQuantity;
     private String imageUrl;
+    private String brand;
 }

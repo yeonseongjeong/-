@@ -130,5 +130,18 @@ public class SalesAnalysisDAO {
 
         return result;
     }
+    public List<Map<String, Object>> getSalesDataByBrand(String startDate, String endDate) {
+        String sql = "SELECT p.brand, NVL(SUM(oi.quantity), 0) AS total_quantity, NVL(SUM(oi.price * oi.quantity), 0) AS total_revenue " +
+                     "FROM products p " +
+                     "LEFT JOIN order_items oi ON p.product_id = oi.product_id " +
+                     "LEFT JOIN orders o ON oi.order_id = o.order_id " +
+                     "AND TRUNC(o.order_date) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') " +
+                     "GROUP BY p.brand ORDER BY p.brand";
+        
+        return jdbcTemplate.queryForList(sql, new Object[]{startDate, endDate});
+    }
+
+
+
 
 }

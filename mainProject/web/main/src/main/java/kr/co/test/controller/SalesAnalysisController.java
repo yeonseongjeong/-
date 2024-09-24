@@ -25,6 +25,10 @@ public class SalesAnalysisController {
     public String showSalesAnalysisPageAll() {
         return "sales-analysis-all";  // JSP 페이지 이름 (전체 분석)
     }
+    @GetMapping("/erp/sales-analysis-brand")
+    public String showSalesAnalysisPageBrand() {
+        return "sales-analysis-brand";  // JSP 페이지 이름 (전체 분석)
+    }
 
     // 특정 기간 동안 카테고리별 판매 데이터를 반환하는 메서드
     @GetMapping("/erp/sales-data")
@@ -52,5 +56,13 @@ public class SalesAnalysisController {
             @RequestParam("endDate") String endDate,
             @RequestParam("periodType") String periodType) {
         return salesAnalysisService.getTotalSalesAndRevenueData(startDate, endDate, periodType);
+    }
+    @GetMapping("/erp/sales-data-brand")
+    @ResponseBody
+    public List<Map<String, Object>> getBrandSalesData(
+            @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate,
+            @RequestParam("periodType") String periodType) {
+        return salesAnalysisService.getSalesDataByBrand(startDate, endDate);
     }
 }
