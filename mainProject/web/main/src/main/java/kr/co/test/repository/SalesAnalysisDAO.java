@@ -130,15 +130,57 @@ public class SalesAnalysisDAO {
 
         return result;
     }
-    public List<Map<String, Object>> getSalesDataByBrand(String startDate, String endDate) {
-        String sql = "SELECT p.brand, NVL(SUM(oi.quantity), 0) AS total_quantity, NVL(SUM(oi.price * oi.quantity), 0) AS total_revenue " +
-                     "FROM products p " +
-                     "LEFT JOIN order_items oi ON p.product_id = oi.product_id " +
-                     "LEFT JOIN orders o ON oi.order_id = o.order_id " +
-                     "AND TRUNC(o.order_date) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') " +
-                     "GROUP BY p.brand ORDER BY p.brand";
-        
-        return jdbcTemplate.queryForList(sql, new Object[]{startDate, endDate});
+ // 브랜드별 판매 데이터를 가져오는 메서드
+    public List<Map<String, Object>> getSalesDataByBrand(String startDate, String endDate, String sortBy) {
+        // 모든 브랜드 목록을 먼저 조회
+        String brandSql = "SELECT DISTINCT brand FROM products";
+        List<Map<String, Object>> allBrands = jdbcTemplate.queryForList(brandSql);
+
+        // 판매 내역 조회
+        String sql = "SELECT p.brand, SUM(oi.quantity) AS total_quantity, SUM(oi.price * oi.quantity) AS total_revenue " +
+                     "FROM order_items oi " +
+                     "JOIN products p ON oi.product_id = p.product_id " +
+                     "JOIN orders o ON oi.order_id = o.order_id " +
+                     "WHERE TRUNC(o.order_date) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') " +
+                     "GROUP BY p.brand";
+
+        // 정렬 조건 추가
+        switch (sortBy) {
+            case "total_quantity_desc":
+                sql += " ORDER BY total_quantity DESC";
+                break;
+            case "total_revenue_desc":
+                sql += " ORDER BY total_revenue DESC";
+                break;
+            default:
+                sql += " ORDER BY p.brand";  // 기본 이름순
+        }
+
+        List<Map<String, Object>> salesData = jdbcTemplate.queryForList(sql, new Object[]{startDate, endDate});
+
+        // 모든 브랜드 목록에 판매 데이터 병합
+        for (Map<String, Object> brand : allBrands) {
+            String brandName = (String) brand.get("BRAND");
+            boolean found = false;
+
+            // 판매 데이터에서 해당 브랜드 찾기
+            for (Map<String, Object> sale : salesData) {
+                if (brandName.equals(sale.get("BRAND"))) {
+                    brand.put("TOTAL_QUANTITY", sale.get("TOTAL_QUANTITY"));
+                    brand.put("TOTAL_REVENUE", sale.get("TOTAL_REVENUE"));
+                    found = true;
+                    break;
+                }
+            }
+
+            // 해당 브랜드의 판매 내역이 없으면 0으로 설정
+            if (!found) {
+                brand.put("TOTAL_QUANTITY", 0);
+                brand.put("TOTAL_REVENUE", 0);
+            }
+        }
+
+        return allBrands;  // 모든 브랜드 목록을 반환 (판매 내역 없는 브랜드 포함)
     }
 
 

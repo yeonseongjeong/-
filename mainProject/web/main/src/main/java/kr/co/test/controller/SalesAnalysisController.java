@@ -62,7 +62,7 @@ public class SalesAnalysisController {
     public List<Map<String, Object>> getBrandSalesData(
             @RequestParam("startDate") String startDate,
             @RequestParam("endDate") String endDate,
-            @RequestParam("periodType") String periodType) {
-        return salesAnalysisService.getSalesDataByBrand(startDate, endDate);
+            @RequestParam("sortBy") String sortBy) {
+        return salesAnalysisService.getSalesDataByBrand(startDate, endDate, sortBy);
     }
 }
