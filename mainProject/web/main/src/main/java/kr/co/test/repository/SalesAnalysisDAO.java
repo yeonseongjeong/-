@@ -92,4 +92,43 @@ public class SalesAnalysisDAO {
 
         return allCategories;
     }
+    public List<Map<String, Object>> getTotalSalesAndRevenue(String startDate, String endDate, String periodType) {
+        String sql = "";
+        
+        switch (periodType) {
+            case "DAILY":
+                sql = "SELECT TRUNC(o.order_date) AS period, SUM(oi.quantity) AS total_quantity, SUM(oi.price * oi.quantity) AS total_revenue " +
+                      "FROM orders o JOIN order_items oi ON o.order_id = oi.order_id " +
+                      "WHERE TRUNC(o.order_date) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') " +
+                      "GROUP BY TRUNC(o.order_date) " +
+                      "ORDER BY TRUNC(o.order_date)";
+                break;
+            case "WEEKLY":
+                sql = "SELECT TO_CHAR(o.order_date, 'IW') AS period, SUM(oi.quantity) AS total_quantity, SUM(oi.price * oi.quantity) AS total_revenue " +
+                      "FROM orders o JOIN order_items oi ON o.order_id = oi.order_id " +
+                      "WHERE TRUNC(o.order_date) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') " +
+                      "GROUP BY TO_CHAR(o.order_date, 'IW') " +
+                      "ORDER BY TO_CHAR(o.order_date, 'IW')";
+                break;
+            case "MONTHLY":
+                sql = "SELECT TO_CHAR(o.order_date, 'YYYY-MM') AS period, SUM(oi.quantity) AS total_quantity, SUM(oi.price * oi.quantity) AS total_revenue " +
+                      "FROM orders o JOIN order_items oi ON o.order_id = oi.order_id " +
+                      "WHERE TRUNC(o.order_date) BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD') " +
+                      "GROUP BY TO_CHAR(o.order_date, 'YYYY-MM') " +
+                      "ORDER BY TO_CHAR(o.order_date, 'YYYY-MM')";
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid period type: " + periodType);
+        }
+        
+        // SQL 출력 (디버깅용)
+        //System.out.println("SQL Query: " + sql);
+        
+        // 결과 실행
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, startDate, endDate);
+        //System.out.println("Result: " + result);  // 결과 출력 (디버깅용)
+
+        return result;
+    }
+
 }

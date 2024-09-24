@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.co.test.service.SalesAnalysisService;
 
 import java.util.List;
@@ -17,9 +16,14 @@ public class SalesAnalysisController {
     @Autowired
     private SalesAnalysisService salesAnalysisService;
 
-    @GetMapping("/erp/sales-analysis")
+    @GetMapping("/erp/sales-analysis-category")
     public String showSalesAnalysisPage() {
-        return "sales-analysis";  // JSP 페이지 이름
+        return "sales-analysis-category";  // JSP 페이지 이름 (카테고리별 분석)
+    }
+    
+    @GetMapping("/erp/sales-analysis-all")
+    public String showSalesAnalysisPageAll() {
+        return "sales-analysis-all";  // JSP 페이지 이름 (전체 분석)
     }
 
     // 특정 기간 동안 카테고리별 판매 데이터를 반환하는 메서드
@@ -38,5 +42,15 @@ public class SalesAnalysisController {
             @RequestParam("startDate") String startDate,
             @RequestParam("endDate") String endDate) {
         return salesAnalysisService.getRevenueDataByCategory(startDate, endDate);
+    }
+
+    // 특정 기간 동안 전체 판매 데이터를 반환하는 메서드
+    @GetMapping("/erp/total-sales-revenue")
+    @ResponseBody
+    public List<Map<String, Object>> getTotalSalesData(
+            @RequestParam("startDate") String startDate,
+            @RequestParam("endDate") String endDate,
+            @RequestParam("periodType") String periodType) {
+        return salesAnalysisService.getTotalSalesAndRevenueData(startDate, endDate, periodType);
     }
 }
