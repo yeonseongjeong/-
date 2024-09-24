@@ -32,7 +32,7 @@ public class OrdersDAO {
             ps.setString(3, ordersVO.getAddress());
             ps.setString(4, ordersVO.getName());
             ps.setString(5, ordersVO.getPhone());
-            ps.setDate(6, new java.sql.Date(ordersVO.getOrderDate().getTime()));
+            ps.setTimestamp(6, new java.sql.Timestamp(ordersVO.getOrderDate().getTime()));
             return ps;
         });
 

@@ -32,7 +32,7 @@
                 <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">보고서</a>
+                <a class="nav-link" href="/erp/sales-analysis">판매 분석</a>
             </li>
         </ul>
     </div>
@@ -73,7 +73,7 @@
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">보고서 생성</h5>
+                    <h5 class="card-title">판매 분석</h5>
                     <p class="card-text">보고서를 생성하고 다운로드하세요.</p>
                     <a href="#" class="btn btn-primary">자세히 보기</a>
                 </div>

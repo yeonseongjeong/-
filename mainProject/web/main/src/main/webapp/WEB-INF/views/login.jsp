@@ -27,6 +27,15 @@
             max-width: 100%;
             height: auto;
         }
+        .icon-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            color: white;
+        }
+        .icon-link i {
+            font-size: 2rem;
     </style>
 </head>
 
