@@ -32,7 +32,7 @@ public class OrdersDAO {
             ps.setString(3, ordersVO.getAddress());
             ps.setString(4, ordersVO.getName());
             ps.setString(5, ordersVO.getPhone());
-            ps.setDate(6, new java.sql.Date(ordersVO.getOrderDate().getTime()));
+            ps.setTimestamp(6, new java.sql.Timestamp(ordersVO.getOrderDate().getTime()));
             return ps;
         });
 
@@ -84,5 +84,18 @@ public class OrdersDAO {
     }
 
 
-
+ // 사용자의 주문 내역을 조회하는 메서드
+    public List<OrdersVO> getOrdersByUserId(Long userId) {
+        String sql = "SELECT * FROM orders WHERE user_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{userId}, 
+            (rs, rowNum) -> {
+                OrdersVO order = new OrdersVO();
+                order.setOrderId(rs.getLong("order_id"));
+                order.setUserId(rs.getLong("user_id"));
+                order.setOrderDate(rs.getDate("order_date"));
+                order.setTotalPrice(rs.getDouble("total_price"));
+                // 추가적으로 필요한 필드들 설정
+                return order;
+            });
+    }
 }

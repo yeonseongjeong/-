@@ -21,8 +21,8 @@ public class UserDAO {
 
     // 회원 정보 삽입
     public int insertUser(UserVO user) {
-        String sql = "INSERT INTO USERS (USER_ID, USERNAME, EMAIL, PASSWORD, PHONE_NUMBER) VALUES (USER_ID_SEQ.NEXTVAL, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPassword(), user.getPhoneNumber());
+        String sql = "INSERT INTO USERS (USER_ID, USERNAME, EMAIL, PASSWORD, PHONE_NUMBER, GRADE) VALUES (USER_ID_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPassword(), user.getPhoneNumber(), "E");
     }
 
     // 회원 ID로 삭제
@@ -53,6 +53,7 @@ public class UserDAO {
             user.setEmail(rs.getString("EMAIL"));
             user.setPassword(rs.getString("PASSWORD"));
             user.setPhoneNumber(rs.getString("PHONE_NUMBER"));
+            user.setGrade(rs.getString("GRADE"));
             return user;
         }
     }

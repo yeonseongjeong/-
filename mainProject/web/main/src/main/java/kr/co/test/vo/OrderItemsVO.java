@@ -9,4 +9,5 @@ public class OrderItemsVO {
     private Long productId;
     private Integer quantity;
     private Double price;
+    private String productName;
 }

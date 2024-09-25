@@ -30,6 +30,16 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="salesAnalysisDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    판매 분석
+                </a>
+                <div class="dropdown-menu" aria-labelledby="salesAnalysisDropdown">
+                    <a class="dropdown-item" href="/erp/sales-analysis-category">카테고리별</a>
+                    <a class="dropdown-item" href="/erp/sales-analysis-brand">브랜드별</a>
+                    <a class="dropdown-item" href="/erp/sales-analysis-product">품목별</a>
+                </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">OCR 관리</a>
             </li>

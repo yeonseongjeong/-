@@ -57,7 +57,7 @@ public class ProductController {
 
 		if (userId != null) {
 			// 조회 기록 저장
-			userViewService.saveUserView(userId, userId);
+			userViewService.saveUserView(userId, productId);
 		}
 		// 클릭한 상품을 제외한 같은 카테고리의 랜덤 상품들 조회
 		List<ProductVO> relatedProducts = productService.getRandomRelatedProducts(product.getCategoryId(), productId);

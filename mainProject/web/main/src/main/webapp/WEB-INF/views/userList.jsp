@@ -36,6 +36,16 @@
              <li class="nav-item">
                 <a class="nav-link" href="#">EVENT 관리</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="salesAnalysisDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    판매 분석
+                </a>
+                <div class="dropdown-menu" aria-labelledby="salesAnalysisDropdown">
+                    <a class="dropdown-item" href="/erp/sales-analysis-category">카테고리별</a>
+                    <a class="dropdown-item" href="/erp/sales-analysis-brand">브랜드별</a>
+                    <a class="dropdown-item" href="/erp/sales-analysis-product">품목별</a>
+                </div>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">보고서</a>
             </li>
@@ -54,6 +64,7 @@
                 <th>사용자 이름</th>
                 <th>이메일</th>
                 <th>전화번호</th>
+                <th>회원등급</th>
                 <th>행동</th>
             </tr>
         </thead>
@@ -67,6 +78,7 @@
                 <td><%= user.getUsername() %></td>
                 <td><%= user.getEmail() %></td>
                 <td><%= user.getPhoneNumber() %></td>
+                <td><%= user.getGrade() %></td>
                 <td>
                     <a href="/erp/userEdit?userId=<%= user.getUserId() %>" class="btn btn-warning btn-sm">수정</a>
                     <a href="/erp/userDelete?userId=<%= user.getUserId() %>" class="btn btn-danger btn-sm">삭제</a>
