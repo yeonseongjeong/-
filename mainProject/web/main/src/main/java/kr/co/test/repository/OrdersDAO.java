@@ -54,5 +54,35 @@ public class OrdersDAO {
             return order;
         });
     }
+    public OrdersVO getOrderById(Long orderId) {
+        String selectSql = "SELECT order_id, user_id, order_date, total_price, address, name, phone FROM orders WHERE order_id = ?";
+        return jdbcTemplate.queryForObject(selectSql, new Object[]{orderId}, (rs, rowNum) -> {
+            OrdersVO order = new OrdersVO();
+            order.setOrderId(rs.getLong("order_id"));
+            order.setUserId(rs.getLong("user_id"));
+            order.setOrderDate(rs.getDate("order_date"));
+            order.setTotalPrice(rs.getDouble("total_price"));
+            order.setAddress(rs.getString("address"));
+            order.setName(rs.getString("name"));
+            order.setPhone(rs.getString("phone"));
+            return order;
+        });
+    }
+
+    public void updateOrder(OrdersVO order) {
+        String updateSql = "UPDATE orders SET name = ?, phone = ?, address = ?, total_price = ? WHERE order_id = ?";
+        jdbcTemplate.update(updateSql, order.getName(), order.getPhone(), order.getAddress(), order.getTotalPrice(), order.getOrderId());
+    }
+
+    public void deleteOrder(Long orderId) {
+        String deleteSql = "DELETE FROM orders WHERE order_id = ?";
+        jdbcTemplate.update(deleteSql, orderId);
+    }
+    public Double getTotalSales() {
+        String selectSql = "SELECT SUM(total_price) FROM orders";
+        return jdbcTemplate.queryForObject(selectSql, Double.class);
+    }
+
+
 
 }

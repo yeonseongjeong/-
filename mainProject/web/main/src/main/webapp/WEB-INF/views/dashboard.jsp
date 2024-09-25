@@ -32,6 +32,12 @@
                 <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#">OCR 관리</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="#">EVENT 관리</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#">보고서</a>
             </li>
         </ul>
@@ -48,7 +54,7 @@
                 <div class="card-body">
                     <h5 class="card-title">재고 현황</h5>
                     <p class="card-text">현재 재고 상황을 확인하세요.</p>
-                    <a href="#" class="btn btn-primary">자세히 보기</a>
+                    <a href="/erp/productList" class="btn btn-primary">자세히 보기</a>
                 </div>
             </div>
         </div>
@@ -73,12 +79,31 @@
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
+                    <h5 class="card-title">OCR 관리</h5>
+                    <p class="card-text">OCR 내역을 확인하고 관리하세요.</p>
+                    <a href="#" class="btn btn-primary">자세히 보기</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">EVENT 관리</h5>
+                    <p class="card-text">고객 EVENT 기능을 사용하세요.</p>
+                    <a href="#" class="btn btn-primary">자세히 보기</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
                     <h5 class="card-title">보고서 생성</h5>
                     <p class="card-text">보고서를 생성하고 다운로드하세요.</p>
                     <a href="#" class="btn btn-primary">자세히 보기</a>
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 

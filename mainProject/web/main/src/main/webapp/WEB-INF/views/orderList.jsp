@@ -31,6 +31,12 @@
                 <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#">OCR 관리</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="#">EVENT 관리</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#">보고서</a>
             </li>
             <!-- 다른 메뉴 항목 추가 가능 -->
@@ -67,10 +73,15 @@
                 <td><%= order.getAddress() %></td>
                 <td><%= order.getName() %></td>
                 <td><%= order.getPhone() %></td>
+                <td>
+		            <a href="/erp/editOrder?orderId=<%= order.getOrderId() %>" class="btn btn-warning btn-sm">수정</a>
+		            <a href="/erp/deleteOrder?orderId=<%= order.getOrderId() %>" class="btn btn-danger btn-sm" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+		        </td>
             </tr>
             <% } %>
         </tbody>
     </table>
+    <h3>전체 판매 가격: <%= request.getAttribute("totalSales") %> 원</h3> <!-- 전체 판매 가격 출력 -->
 </div>
 
 <footer class="bg-light text-center py-3">

@@ -30,6 +30,12 @@
                 <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#">OCR 관리</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="#">EVENT 관리</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#">보고서</a>
             </li>
             <!-- 다른 메뉴 항목 추가 가능 -->
@@ -61,6 +67,7 @@
             <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" value="${product.stockQuantity}" required>
         </div>
         <button type="submit" class="btn btn-primary">수정하기</button>
+        <a href="/erp/productList" class="btn btn-secondary">취소</a>
     </form>
 </div>
 </body>

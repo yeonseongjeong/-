@@ -1,12 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="kr.co.test.vo.UserVO" %>
+<%@ page import="kr.co.test.vo.OrdersVO" %>
+<%@ page import="javax.servlet.http.HttpServletRequest" %>
+<%@ page import="javax.servlet.http.HttpServletResponse" %>
+
+<%
+    OrdersVO order = (OrdersVO) request.getAttribute("order");
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유저 관리</title>
+    <title>주문 수정</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -24,7 +29,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/erp/productList">재고 관리</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/erp/userList">고객 관리</a>
             </li>
             <li class="nav-item">
@@ -39,47 +44,36 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">보고서</a>
             </li>
+            <!-- 다른 메뉴 항목 추가 가능 -->
         </ul>
     </div>
 </nav>
 
 <div class="container mt-4">
-    <h1>유저 목록</h1>
-    <a href="/erp/signup" class="btn btn-primary mb-3">회원가입</a>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>사용자 ID</th>
-                <th>사용자 이름</th>
-                <th>이메일</th>
-                <th>전화번호</th>
-                <th>행동</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% 
-                List<UserVO> userList = (List<UserVO>) request.getAttribute("userList");
-                for (UserVO user : userList) { 
-            %>
-            <tr>
-                <td><%= user.getUserId() %></td>
-                <td><%= user.getUsername() %></td>
-                <td><%= user.getEmail() %></td>
-                <td><%= user.getPhoneNumber() %></td>
-                <td>
-                    <a href="/erp/userEdit?userId=<%= user.getUserId() %>" class="btn btn-warning btn-sm">수정</a>
-                    <a href="/erp/userDelete?userId=<%= user.getUserId() %>" class="btn btn-danger btn-sm">삭제</a>
-                </td>
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
+    <h1>주문 수정</h1>
+    <form action="/erp/updateOrder" method="post">
+        <input type="hidden" name="orderId" value="<%= order.getOrderId() %>">
+        
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= order.getName() %>" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">전화번호</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="<%= order.getPhone() %>" required>
+        </div>
+        <div class="form-group">
+            <label for="address">주소</label>
+            <input type="text" class="form-control" id="address" name="address" value="<%= order.getAddress() %>" required>
+        </div>
+        <div class="form-group">
+            <label for="totalPrice">총 가격</label>
+            <input type="text" class="form-control" id="totalPrice" name="totalPrice" value="<%= order.getTotalPrice() %>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">수정하기</button>
+        <a href="/erp/orders" class="btn btn-secondary">취소</a>
+    </form>
 </div>
-
-<footer class="bg-light text-center py-3">
-    <p>&copy; 2024 ERP 시스템. 모든 권리 보유.</p>
-</footer>
 
 </body>
 </html>

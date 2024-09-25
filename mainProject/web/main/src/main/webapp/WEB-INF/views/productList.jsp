@@ -21,7 +21,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/erp/dashboard">대시보드</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/erp/productList">재고 관리</a>
             </li>
             <li class="nav-item">
@@ -29,6 +29,12 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">OCR 관리</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="#">EVENT 관리</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">보고서</a>
