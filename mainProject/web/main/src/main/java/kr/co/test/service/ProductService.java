@@ -40,5 +40,8 @@ public class ProductService {
     public void updateProduct(ProductVO product) {
         productDAO.updateProduct(product);
     }
-
+ // 추천된 productId에 해당하는 제품 목록을 가져오는 메서드
+    public List<ProductVO> getProductsByIds(List<Integer> productIds) {
+        return productDAO.getProductsByIds(productIds);
+    }
 }

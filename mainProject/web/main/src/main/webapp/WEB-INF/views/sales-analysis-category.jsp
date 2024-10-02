@@ -55,6 +55,12 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#">OCR 관리</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="#">EVENT 관리</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#">보고서</a>
             </li>
         </ul>

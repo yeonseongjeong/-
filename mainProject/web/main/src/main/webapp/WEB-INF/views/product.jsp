@@ -194,14 +194,14 @@
                             Products
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Mouse</a></li>
-                            <li><a class="dropdown-item" href="#">Keyboard</a></li>
-                            <li><a class="dropdown-item" href="#">Monitor</a></li>
-                            <li><a class="dropdown-item" href="#">Webcam</a></li>
-                            <li><a class="dropdown-item" href="#">Speaker</a></li>
-                            <li><a class="dropdown-item" href="#">HeadPhone</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/products">All products</a></li>
+                            <li><a class="dropdown-item" href="/products/category/1">Mouse</a></li>
+					        <li><a class="dropdown-item" href="/products/category/2">Keyboard</a></li>
+					        <li><a class="dropdown-item" href="/products/category/3">Monitor</a></li>
+					        <li><a class="dropdown-item" href="/products/category/4">Webcam</a></li>
+					        <li><a class="dropdown-item" href="/products/category/5">Speaker</a></li>
+					        <li><a class="dropdown-item" href="/products/category/6">HeadPhone</a></li>
+					        <li><hr class="dropdown-divider"></li>
+					        <li><a class="dropdown-item" href="/products">All products</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

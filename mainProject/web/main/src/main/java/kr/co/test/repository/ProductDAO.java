@@ -2,6 +2,8 @@ package kr.co.test.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -114,6 +116,36 @@ public class ProductDAO {
         String sql = "UPDATE products SET product_name = ?, category_id = ?, price = ?, stock_quantity = ? WHERE product_id = ?";
         return jdbcTemplate.update(sql, product.getProductName(), product.getCategoryId(), product.getPrice(), product.getStockQuantity(), product.getProductId());
     }
+
+    public List<ProductVO> getProductsByIds(List<Integer> productIds) {
+        // productIds가 비어 있으면 빈 리스트를 반환
+        if (productIds == null || productIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        // IN 절에 들어갈 ?의 개수를 productIds 리스트의 크기만큼 동적으로 생성
+        String inSql = String.join(",", Collections.nCopies(productIds.size(), "?"));
+        
+        // SQL 쿼리 작성
+        String sql = "SELECT product_id, product_name, category_id, price, stock_quantity, image_url " +
+                     "FROM products WHERE product_id IN (" + inSql + ")";
+        
+        // JdbcTemplate을 사용하여 쿼리 실행
+        return jdbcTemplate.query(sql, productIds.toArray(), new RowMapper<ProductVO>() {
+            @Override
+            public ProductVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ProductVO product = new ProductVO();
+                product.setProductId(rs.getInt("product_id"));
+                product.setProductName(rs.getString("product_name"));
+                product.setCategoryId(rs.getInt("category_id"));
+                product.setPrice(rs.getInt("price"));
+                product.setStockQuantity(rs.getInt("stock_quantity"));
+                product.setImageUrl(rs.getString("image_url"));
+                return product;
+            }
+        });
+    }
+
 
 
 
