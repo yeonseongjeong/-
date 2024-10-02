@@ -40,5 +40,18 @@ public class ProductService {
     public void updateProduct(ProductVO product) {
         productDAO.updateProduct(product);
     }
+ // 상품 수량을 줄이는 메서드 추가
+    public void reduceProductStock(int productId, int quantity) {
+        ProductVO product = productDAO.getProductById(productId);
+        if (product != null) {
+            int newStock = product.getStockQuantity() - quantity;
+            if (newStock >= 0) {
+                product.setStockQuantity(newStock);
+                productDAO.updateProduct(product); // 재고 업데이트
+            } else {
+                throw new RuntimeException("재고가 부족합니다.");
+            }
+        }
+    }
 
 }

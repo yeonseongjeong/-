@@ -15,8 +15,10 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.test.repository.OrderItemsDAO;
 import kr.co.test.repository.OrdersDAO;
+import kr.co.test.service.UserService; // UserService 추가
 import kr.co.test.vo.OrdersVO;
 import kr.co.test.vo.OrderItemsVO;
+import kr.co.test.vo.UserVO; // UserVO 추가
 
 @Controller
 public class OrdersController {
@@ -27,22 +29,26 @@ public class OrdersController {
     @Autowired
     private OrderItemsDAO orderItemsDAO;
 
+    @Autowired
+    private UserService userService; // UserService 주입
+
     @PostMapping("/placeOrder")
     public String placeOrder(
         @RequestParam("name") String name,
         @RequestParam("phone") String phone,
         @RequestParam("address") String address,
         @RequestParam("totalPrice") Double totalPrice,
+      //  @RequestParam("delivery") int delivery, // delivery 추가
         @RequestParam("productIds") String productIds,
         @RequestParam("quantities") String quantities,
         @RequestParam("prices") String prices,
         HttpSession session) {
 
-    	// 입력된 값 출력해보기
+        // 입력된 값 출력해보기
         System.out.println("Product IDs: " + productIds);
         System.out.println("Quantities: " + quantities);
         System.out.println("Prices: " + prices);
-    	
+        
         Integer userIdInt = (Integer) session.getAttribute("userId");
         if (userIdInt == null) {
             return "redirect:/login"; 
@@ -57,6 +63,7 @@ public class OrdersController {
         order.setUserId(userId);
         order.setOrderDate(new Date());
         order.setTotalPrice(totalPrice);
+        order.setDelivery(0); // delivery 설정
 
         Long orderId = ordersDAO.insertOrder(order); 
         if (orderId == null) {
@@ -105,7 +112,8 @@ public class OrdersController {
             @RequestParam("name") String name,
             @RequestParam("phone") String phone,
             @RequestParam("address") String address,
-            @RequestParam("totalPrice") Double totalPrice) {
+            @RequestParam("totalPrice") Double totalPrice,
+            @RequestParam("delivery") int delivery) { // delivery 추가
         
         OrdersVO order = new OrdersVO();
         order.setOrderId(orderId);
@@ -113,11 +121,11 @@ public class OrdersController {
         order.setPhone(phone);
         order.setAddress(address);
         order.setTotalPrice(totalPrice);
+        order.setDelivery(delivery); // delivery 설정
         
         ordersDAO.updateOrder(order); // OrdersDAO에 updateOrder 메서드 구현 필요
         return "redirect:/erp/orders"; // 수정 후 주문 목록으로 리다이렉트
     }
-
 
     @RequestMapping("/erp/editOrder")
     public ModelAndView editOrder(@RequestParam("orderId") Long orderId) {
@@ -132,6 +140,7 @@ public class OrdersController {
         ordersDAO.deleteOrder(orderId); // OrdersDAO에 deleteOrder 메서드 구현 필요
         return "redirect:/erp/orders";
     }
+
     @RequestMapping("/erp/orders")
     public ModelAndView showOrderList() {
         List<OrdersVO> orderList = ordersDAO.getAllOrders(); // 모든 주문을 가져오는 메서드
@@ -141,13 +150,12 @@ public class OrdersController {
         DecimalFormat formatter = new DecimalFormat("#,###");
         String formattedTotalSales = formatter.format(totalSales); // 소수점 이하 0자리로 포맷팅
 
+        List<UserVO> userList = userService.getAllUsers(); // 모든 사용자 목록 가져오기
+
         ModelAndView mav = new ModelAndView("orderList"); // orderList.jsp를 반환
         mav.addObject("orderList", orderList);
+        mav.addObject("userList", userList); // 사용자 목록 추가
         mav.addObject("totalSales", formattedTotalSales); // 포맷팅된 전체 판매 가격 추가
         return mav;
     }
-
-
-
-
 }
