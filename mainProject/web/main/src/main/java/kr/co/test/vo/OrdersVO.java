@@ -13,4 +13,5 @@ public class OrdersVO {
     private String address;
     private String name;
     private String phone;
+    private int delivery;
 }

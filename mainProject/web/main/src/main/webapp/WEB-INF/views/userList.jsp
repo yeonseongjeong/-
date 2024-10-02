@@ -11,6 +11,38 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function filterByName() {
+            const input = document.getElementById("nameSearch").value.toLowerCase();
+            const table = document.getElementById("userTable");
+            const rows = Array.from(table.rows).slice(1);
+
+            rows.forEach(row => {
+                const nameCell = row.cells[1].textContent.toLowerCase(); // 이름이 있는 셀 (인덱스 1)
+                if (nameCell.includes(input)) {
+                    row.style.display = ""; // 포함되면 표시
+                } else {
+                    row.style.display = "none"; // 포함되지 않으면 숨김
+                }
+            });
+        }
+
+        function sortByGrade() {
+            const table = document.getElementById("userTable");
+            const rows = Array.from(table.rows).slice(1);
+            const isAscending = table.dataset.sortOrder === 'asc';
+
+            rows.sort((a, b) => {
+                const gradeA = a.cells[4].textContent.trim(); // 회원등급이 있는 셀 (인덱스 4)
+                const gradeB = b.cells[4].textContent.trim();
+
+                return isAscending ? gradeA.localeCompare(gradeB) : gradeB.localeCompare(gradeA);
+            });
+
+            rows.forEach(row => table.appendChild(row));
+            table.dataset.sortOrder = isAscending ? 'desc' : 'asc';
+        }
+    </script>
 </head>
 <body>
 
@@ -29,6 +61,12 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">OCR 관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">EVENT 관리</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="salesAnalysisDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,14 +96,18 @@
     <h1>유저 목록</h1>
     <a href="/erp/signup" class="btn btn-primary mb-3">회원가입</a>
 
-    <table class="table table-striped">
+    <div class="mb-3">
+        <input type="text" id="nameSearch" class="form-control" placeholder="이름으로 검색" onkeyup="filterByName()">
+    </div>
+
+    <table class="table table-striped" id="userTable" data-sort-order="asc">
         <thead>
             <tr>
                 <th>사용자 ID</th>
                 <th>사용자 이름</th>
                 <th>이메일</th>
                 <th>전화번호</th>
-                <th>회원등급</th>
+                <th onclick="sortByGrade()" style="cursor: pointer;">회원등급 &#x21C5;</th>
                 <th>행동</th>
             </tr>
         </thead>
