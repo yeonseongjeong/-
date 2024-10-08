@@ -60,7 +60,7 @@ json_file_path = 'C:\\RPAWork\\workspace\\mainproject\\mainProject\\json\\json_f
 with open(json_file_path, 'w', encoding='utf-8') as file:
     json.dump(json_data, file, ensure_ascii=False, indent=4)
 
-client = OpenAI(api_key="sk-proj-LzqSiG9pU7cJ3HuKX2fBT3BlbkFJpqSL0RdLQevpuiiVT21Y")
+client = OpenAI()
 
 # OpenAI API를 통한 정보 분석 요청
 response = client.chat.completions.create(
