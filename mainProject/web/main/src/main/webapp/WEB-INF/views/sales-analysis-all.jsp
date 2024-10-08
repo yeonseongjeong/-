@@ -150,72 +150,89 @@ $(document).ready(function () {
     });
 });
 
-// 차트 및 테이블 데이터 로드
 function loadSalesAndRevenueData(startDate, endDate, periodType) {
     $.ajax({
         url: '/erp/total-sales-revenue',
         type: 'GET',
         data: { startDate: startDate, endDate: endDate, periodType: periodType },
         success: function(response) {
-            // 응답 데이터에서 정확한 키를 참조합니다
-            const salesData = response.map(item => item.TOTAL_QUANTITY);  // 총 판매량 데이터를 추출
-            const revenueData = response.map(item => item.TOTAL_REVENUE);  // 총 매출액 데이터를 추출
+            const salesData = response.map(item => item.TOTAL_QUANTITY || 0);  // 총 판매량 데이터를 추출 (데이터가 없을 경우 0)
+            const revenueData = response.map(item => item.TOTAL_REVENUE || 0);  // 총 매출액 데이터를 추출 (데이터가 없을 경우 0)
 
-            // PERIOD 값을 유닉스 타임스탬프가 아닌 날짜 형식으로 변환
             const labels = response.map(item => {
                 const timestamp = item.PERIOD;
+
+                if (!timestamp) {
+                    // 타임스탬프가 없으면 '-- ~ --'로 표시
+                    return '-- ~ --';
+                }
+
                 const date = new Date(timestamp);
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1;  // 월은 0부터 시작하므로 +1
-                const day = date.getDate();
 
-                // 두 자리 숫자로 변환
-                const formattedMonth = String(month).padStart(2, '0');
-                const formattedDay = String(day).padStart(2, '0');
+                if (periodType === 'WEEKLY') {
+                    // 주간 데이터인 경우 "연도 월 n번째 주"로 표시
+                    const weekNumber = getWeekNumberOfMonth(date);
+                    const year = date.getFullYear();
+                    const month = String(date.getMonth() + 1);  // 월은 0부터 시작하므로 +1
+                    return year + '년 ' + month + '월 ' + weekNumber + '번째 주';
+                } else {
+                    // 일간 또는 월간 데이터인 경우 기존 방식
+                    const year = date.getFullYear();
+                    const month = date.getMonth() + 1;  // 월은 0부터 시작하므로 +1
+                    const day = date.getDate();
 
-                // 날짜 형식으로 변환
-                return year + '-' + formattedMonth + '-' + formattedDay;
+                    // 두 자리 숫자로 변환
+                    const formattedMonth = String(month).padStart(2, '0');
+                    const formattedDay = String(day).padStart(2, '0');
+
+                    // 날짜 형식으로 변환
+                    return year + '-' + formattedMonth + '-' + formattedDay;
+                }
             });
 
-            // 기존 차트를 정확하게 삭제
+            // 기존 차트 제거
             if (salesChart) {
                 salesChart.destroy();
-                salesChart = null;  // 차트가 null이 되도록 설정
+                salesChart = null;
             }
             if (revenueChart) {
                 revenueChart.destroy();
-                revenueChart = null;  // 차트가 null이 되도록 설정
+                revenueChart = null;
             }
 
-            // 판매량 차트
+            // 판매량 꺾은선 차트
             const salesCtx = document.getElementById('salesChart').getContext('2d');
             salesChart = new Chart(salesCtx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: '총 판매량',
                         data: salesData,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
+                        fill: true,
+                        borderWidth: 2,
+                        tension: 0.3
                     }]
                 },
                 options: { scales: { y: { beginAtZero: true } } }
             });
 
-            // 매출액 차트
+            // 매출액 꺾은선 차트
             const revenueCtx = document.getElementById('revenueChart').getContext('2d');
             revenueChart = new Chart(revenueCtx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: '총 매출액',
                         data: revenueData,
-                        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
                         borderColor: 'rgba(153, 102, 255, 1)',
-                        borderWidth: 1
+                        fill: true,
+                        borderWidth: 2,
+                        tension: 0.3
                     }]
                 },
                 options: { scales: { y: { beginAtZero: true } } }
@@ -237,20 +254,18 @@ function loadSalesAndRevenueData(startDate, endDate, periodType) {
     });
 }
 
-// 페이지 로드 및 조회 버튼 클릭 이벤트 처리
-$(document).ready(function() {
-    $('#loadData').click(function() {
-        const startDate = $('#startDate').val();
-        const endDate = $('#endDate').val();
-        const periodType = $('#periodType').val();
+// 해당 날짜가 해당 월의 몇 번째 주인지 계산하는 함수
+function getWeekNumberOfMonth(date) {
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const targetDate = new Date(date);  // 대상 날짜를 복사하여 수정
+    const dayOfWeek = firstDayOfMonth.getDay();  // 해당 월의 첫 날이 무슨 요일인지 (0: 일요일, 1: 월요일, ..., 6: 토요일)
 
-        if (startDate && endDate) {
-            loadSalesAndRevenueData(startDate, endDate, periodType);
-        } else {
-            alert('시작 날짜와 종료 날짜를 입력하세요.');
-        }
-    });
-});
+    // 날짜 기준으로 주차 계산
+    const adjustedDate = targetDate.getDate() + dayOfWeek;
+    const weekNumber = Math.ceil(adjustedDate / 7);
+
+    return weekNumber;
+}
 
 </script>
 </body>

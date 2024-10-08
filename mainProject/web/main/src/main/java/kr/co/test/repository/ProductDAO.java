@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -131,7 +133,7 @@ public class ProductDAO {
                      "FROM products WHERE product_id IN (" + inSql + ")";
         
         // JdbcTemplate을 사용하여 쿼리 실행
-        return jdbcTemplate.query(sql, productIds.toArray(), new RowMapper<ProductVO>() {
+        List<ProductVO> products = jdbcTemplate.query(sql, productIds.toArray(), new RowMapper<ProductVO>() {
             @Override
             public ProductVO mapRow(ResultSet rs, int rowNum) throws SQLException {
                 ProductVO product = new ProductVO();
@@ -144,7 +146,16 @@ public class ProductDAO {
                 return product;
             }
         });
+
+        // productIds 순서대로 제품을 정렬
+        Map<Integer, ProductVO> productMap = products.stream()
+                .collect(Collectors.toMap(ProductVO::getProductId, product -> product));
+
+        return productIds.stream()
+                .map(productMap::get)  // productIds 순서대로 정렬
+                .collect(Collectors.toList());
     }
+
 
 
 
