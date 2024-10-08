@@ -65,4 +65,5 @@ public class SalesAnalysisController {
             @RequestParam("sortBy") String sortBy) {
         return salesAnalysisService.getSalesDataByBrand(startDate, endDate, sortBy);
     }
+    
 }

@@ -1,30 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="kr.co.test.vo.ProductVO" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 목록 관리</title>
+    <title>OCR 이미지 업로드</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<style>
-  table {
-      table-layout: fixed;
-      width: 100%;
-  }
-  th, td {
-      word-wrap: break-word;
-  }
-</style>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">ERP 시스템</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
@@ -59,44 +51,25 @@
             <li class="nav-item">
                 <a class="nav-link" href="/erp/report">보고서</a>
             </li>
-            <!-- 다른 메뉴 항목 추가 가능 -->
         </ul>
     </div>
 </nav>
 
 <div class="container mt-4">
-    <h1>상품 목록</h1>
+    <h1>OCR 이미지 업로드</h1>
+    <p>이미지를 선택하여 업로드 후 OCR 처리를 진행하세요.</p>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>상품 ID</th>
-                <th>상품 이름</th>
-                <th>카테고리 ID</th>
-                <th>가격</th>
-                <th>재고 수량</th>
-                <th>수정</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% 
-                // 상품 목록을 가져온다고 가정
-                List<ProductVO> productList = (List<ProductVO>) request.getAttribute("products");
-                for (ProductVO product : productList) { 
-            %>
-            <tr>
-                <td><%= product.getProductId() %></td>
-                <td><%= product.getProductName() %></td>
-                <td><%= product.getCategoryId() %></td>
-                <td><%= product.getPrice() %></td>
-                <td><%= product.getStockQuantity() != null ? product.getStockQuantity() : "품절" %></td>
-                <td>
-                    <a href="/erp/editProduct/<%= product.getProductId() %>" class="btn btn-warning">수정</a>
-                </td>
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
+    <c:if test="${not empty message}">
+        <div class="alert alert-info">${message}</div>
+    </c:if>
+
+    <form action="/erp/uploadImage" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="imageUpload">이미지 파일 선택</label>
+            <input type="file" class="form-control-file" id="imageUpload" name="imageFile" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary">업로드</button>
+    </form>
 </div>
 
 <footer class="bg-light text-center py-3">

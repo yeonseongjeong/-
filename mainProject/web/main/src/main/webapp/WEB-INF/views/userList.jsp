@@ -62,12 +62,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">OCR 관리</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">EVENT 관리</a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="salesAnalysisDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     판매 분석
@@ -80,13 +74,13 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">OCR 관리</a>
+                <a class="nav-link" href="/erp/ocr">OCR 관리</a>
             </li>
              <li class="nav-item">
                 <a class="nav-link" href="#">EVENT 관리</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">보고서</a>
+                <a class="nav-link" href="/erp/report">보고서</a>
             </li>
         </ul>
     </div>

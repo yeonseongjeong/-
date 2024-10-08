@@ -1,30 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="kr.co.test.vo.ProductVO" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 목록 관리</title>
+    <title>판매 보고서 생성</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<style>
-  table {
-      table-layout: fixed;
-      width: 100%;
-  }
-  th, td {
-      word-wrap: break-word;
-  }
-</style>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">ERP 시스템</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
@@ -59,49 +51,71 @@
             <li class="nav-item">
                 <a class="nav-link" href="/erp/report">보고서</a>
             </li>
-            <!-- 다른 메뉴 항목 추가 가능 -->
         </ul>
     </div>
 </nav>
 
 <div class="container mt-4">
-    <h1>상품 목록</h1>
+    <h1>판매 보고서 생성</h1>
+    
+    <form id="reportForm">
+        <div class="form-group">
+            <label for="startDate">시작 날짜:</label>
+            <input type="date" class="form-control" id="startDate" required>
+        </div>
+        <div class="form-group">
+            <label for="endDate">종료 날짜:</label>
+            <input type="date" class="form-control" id="endDate" required>
+        </div>
+        <div class="form-group">
+            <label for="periodType">분석 기준:</label>
+            <select class="form-control" id="periodType" required>
+                <option value="DAILY">일간</option>
+                <option value="WEEKLY">주간</option>
+                <option value="MONTHLY">월간</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" id="generateReportButton">보고서 생성</button>
+    </form>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>상품 ID</th>
-                <th>상품 이름</th>
-                <th>카테고리 ID</th>
-                <th>가격</th>
-                <th>재고 수량</th>
-                <th>수정</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% 
-                // 상품 목록을 가져온다고 가정
-                List<ProductVO> productList = (List<ProductVO>) request.getAttribute("products");
-                for (ProductVO product : productList) { 
-            %>
-            <tr>
-                <td><%= product.getProductId() %></td>
-                <td><%= product.getProductName() %></td>
-                <td><%= product.getCategoryId() %></td>
-                <td><%= product.getPrice() %></td>
-                <td><%= product.getStockQuantity() != null ? product.getStockQuantity() : "품절" %></td>
-                <td>
-                    <a href="/erp/editProduct/<%= product.getProductId() %>" class="btn btn-warning">수정</a>
-                </td>
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
+    <div id="message" class="alert alert-success mt-3" style="display:none;"></div>
 </div>
 
 <footer class="bg-light text-center py-3">
     <p>&copy; 2024 ERP 시스템. 모든 권리 보유.</p>
 </footer>
+
+<script>
+    $('#generateReportButton').click(function() {
+        const startDate = $('#startDate').val();
+        const endDate = $('#endDate').val();
+        const periodType = $('#periodType').val();
+
+        // 유효성 검사
+        if (!startDate || !endDate || !periodType) {
+            alert('모든 필드를 채워주세요.');
+            return;
+        }
+
+        $.ajax({
+            url: '/erp/generateReport',
+            type: 'POST',
+            data: {
+                startDate: startDate,
+                endDate: endDate,
+                periodType: periodType
+            },
+            success: function(response) {
+                $('#message').text('보고서가 성공적으로 생성되었습니다.').show();
+            },
+            error: function(error) {
+                const errorMessage = error.responseJSON?.error || '보고서 생성 중 오류가 발생했습니다.';
+                console.error('보고서 생성 중 오류 발생:', error);
+                alert(errorMessage);
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

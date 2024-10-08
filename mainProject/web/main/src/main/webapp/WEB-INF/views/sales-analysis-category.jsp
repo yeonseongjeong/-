@@ -25,47 +25,41 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">ERP 시스템</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="/erp/dashboard">대시보드</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/erp/productList">재고 관리</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/erp/userList">고객 관리</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/erp/orders">주문 내역 관리</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="salesAnalysisDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    판매 분석
-                </a>
-                <div class="dropdown-menu" aria-labelledby="salesAnalysisDropdown">
-                    <a class="dropdown-item" href="/erp/sales-analysis-all">전체</a>
-                    <a class="dropdown-item" href="/erp/sales-analysis-category">카테고리별</a>
-                    <a class="dropdown-item" href="/erp/sales-analysis-brand">브랜드별</a>
-                    <a class="dropdown-item" href="/erp/sales-analysis-product">품목별</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">OCR 관리</a>
-            </li>
-             <li class="nav-item">
-                <a class="nav-link" href="#">EVENT 관리</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">보고서</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+		<a class="navbar-brand" href="#">ERP 시스템</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					href="/erp/dashboard">대시보드</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="/erp/productList">재고 관리</a></li>
+				<li class="nav-item"><a class="nav-link" href="/erp/userList">고객
+						관리</a></li>
+				<li class="nav-item"><a class="nav-link" href="/erp/orders">주문
+						내역 관리</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#"
+					id="salesAnalysisDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> 판매 분석 </a>
+					<div class="dropdown-menu" aria-labelledby="salesAnalysisDropdown">
+						<a class="dropdown-item" href="/erp/sales-analysis-all">전체</a> <a
+							class="dropdown-item" href="/erp/sales-analysis-category">카테고리별</a>
+						<a class="dropdown-item" href="/erp/sales-analysis-brand">브랜드별</a>
+						<a class="dropdown-item" href="/erp/sales-analysis-product">품목별</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link" href="/erp/ocr">OCR
+						관리</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">EVENT 관리</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="/erp/report">보고서</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
 	<div class="container mt-4">
 		<!-- 메인 컨텐츠 영역 -->
