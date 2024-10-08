@@ -43,13 +43,13 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">OCR 관리</a>
+                <a class="nav-link" href="/erp/ocr">OCR 관리</a>
             </li>
              <li class="nav-item">
                 <a class="nav-link" href="#">EVENT 관리</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">보고서</a>
+                <a class="nav-link" href="/erp/report">보고서</a>
             </li>
         </ul>
     </div>
@@ -92,7 +92,7 @@
                 <div class="card-body">
                     <h5 class="card-title">OCR 관리</h5>
                     <p class="card-text">OCR 내역을 확인하고 관리하세요.</p>
-                    <a href="#" class="btn btn-primary">자세히 보기</a>
+                    <a href="/erp/ocr" class="btn btn-primary">자세히 보기</a>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">판매 분석</h5>
-                    <p class="card-text">보고서를 생성하고 다운로드하세요.</p>
+                    <p class="card-text">보고서를 생성하세요.</p>
                     <a href="#" class="btn btn-primary">자세히 보기</a>
                 </div>
             </div>
@@ -118,8 +118,8 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">보고서 생성</h5>
-                    <p class="card-text">보고서를 생성하고 다운로드하세요.</p>
-                    <a href="#" class="btn btn-primary">자세히 보기</a>
+                    <p class="card-text">보고서를 생성하세요.</p>
+                    <a href="/erp/report" class="btn btn-primary">자세히 보기</a>
                 </div>
             </div>
         </div>
