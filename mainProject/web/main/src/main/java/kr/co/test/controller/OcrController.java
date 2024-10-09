@@ -41,7 +41,7 @@ public class OcrController {
                 "C:\\RPAWork\\workspace\\mainproject\\mainproject\\py\\ocr.py", // 파이썬 스크립트 경로
                 uploadFile.getAbsolutePath() // 업로드된 파일의 절대 경로를 파라미터로 전달
             );
-
+            
             // Process 실행
             Process process = processBuilder.start();
 
