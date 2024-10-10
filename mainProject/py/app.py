@@ -7,6 +7,9 @@ import logging
 
 app = Flask(__name__)
 
+# 캐시 비활성화
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 # 로깅 설정
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -111,14 +114,19 @@ def preprocess_and_recommend(user_id):
     return recommended_products['PRODUCT_ID'].tolist()
 
 # 추천 API
+# 추천 API에 캐싱 방지 헤더 추가
 @app.route('/recommend', methods=['GET'])
 def recommend():
     user_id = request.args.get('user_id')
     if user_id is None:
         return jsonify({'error': 'user_id is required'}), 400
+
+    logging.info(f"Received user_id: {user_id}")  # user_id를 로그로 출력
     
-    recommended_ids = preprocess_and_recommend(user_id)
-    return jsonify(recommended_ids)
+    # 응답에 캐싱 방지 헤더 추가
+    response = jsonify(preprocess_and_recommend(user_id))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    return response
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
