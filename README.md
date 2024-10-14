@@ -5,7 +5,7 @@
 ## 주요 기능
 
 - **이익 분석**: 카테고리별, 기간별(일간, 주간, 월간), 브랜드별로 판매 데이터를 분석합니다.
-- **데이터 시각화**: 주요 성과 지표를 막대 그래프로 시각화하여 제공합니다. JavaScript의 `Canvas API`를 사용해 데이터를 시각적으로 표현합니다.
+- **데이터 시각화**: 주요 성과 지표를 막대 그래프로 시각화하여 제공합니다. JavaScript의 Chart.js를 사용해 데이터를 시각적으로 표현합니다.
 - **쇼핑몰 웹 구현**: Spring Legacy Project를 사용하여 쇼핑몰 웹 애플리케이션을 구축하였습니다. 이 웹사이트는 사용자와의 상호작용을 위한 프론트엔드 및 백엔드 시스템을 포함합니다.
 - **브랜드 및 카테고리별 분석**: 다양한 브랜드와 카테고리에 대한 판매 성과를 제공합니다.
 - **OCR 기능**: 네이버 클로바와 OpenAI를 이용하여 택배 운송장을 읽는 OCR 기능을 구현하였습니다. 이 기능은 운송장 정보를 자동으로 추출하고, 데이터베이스에 저장하는 데 사용됩니다.
@@ -18,7 +18,7 @@
 ## 사용 기술
 
 - **Spring Legacy Project**: 쇼핑몰의 백엔드 로직을 처리하며, 데이터베이스와 연결하여 주문, 사용자, 제품 정보를 관리합니다.
-- **JavaScript (Canvas API)**: Canvas API를 사용하여 데이터 시각화 및 판매 통계 그래프를 그립니다.
+- **JavaScript (Chart.js)**: Chart.js를 사용하여 데이터 시각화 및 판매 통계 그래프를 그립니다.
 - **Oracle 데이터베이스**: 판매 데이터를 저장 및 관리합니다.
 - **Brity RPA**: 데이터를 추출하고 데이터베이스에 저장하는 과정을 자동화합니다.
 - **네이버 클로바, OpenAI**: OCR 기능을 통해 택배 운송장의 정보를 인식하고 추출합니다.
@@ -27,3 +27,9 @@
 
 - **메인 페이지**: 로그인한 사용자의 주문/조회/장바구니이력 데이터를 기반으로 10개의 상품을 추천합니다.
 ![image](https://github.com/user-attachments/assets/8c46637f-e13a-421a-883d-cc1944b4da38)
+- **상품 페이지**
+![image](https://github.com/user-attachments/assets/a198b4f6-8f0b-45c5-91d6-6efffca314a8)
+![image](https://github.com/user-attachments/assets/1647b736-a217-4f7a-9fe2-6afd49b90d67)
+- **웹기반 ERP시스템
+![image](https://github.com/user-attachments/assets/1792ed39-ed8f-4c92-80de-4529d7e7ef2a)
+
