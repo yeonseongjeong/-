@@ -30,6 +30,6 @@
 - **상품 페이지**
 ![image](https://github.com/user-attachments/assets/a198b4f6-8f0b-45c5-91d6-6efffca314a8)
 ![image](https://github.com/user-attachments/assets/1647b736-a217-4f7a-9fe2-6afd49b90d67)
-- **웹기반 ERP시스템
+- **웹기반 ERP시스템**
 ![image](https://github.com/user-attachments/assets/1792ed39-ed8f-4c92-80de-4529d7e7ef2a)
-
+![image](https://github.com/user-attachments/assets/1a4fbf16-1bda-4a3f-9f32-56ae1abf5ab2)
